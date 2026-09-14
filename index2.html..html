@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F7F4EB">
+<title>Fortune Intern Network — Bridging Dreams and Careers</title>
+<meta name="description" content="Fortune Intern Network is a single-purpose hiring and training house: paid internships, graduate traineeships and the academy that prepares you for both. Accra, Ghana.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23F7F4EB'/%3E%3Cpolygon points='24,6 38,12 24,18 10,12' fill='%230B1C36'/%3E%3Cpolygon points='24,23 28,31 24,39 20,31' fill='%23FFC72C'/%3E%3Cpolygon points='24,23 28,31 20,31' fill='%230B1C36'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens — Inter everywhere ============ */
+:root{
+  --paper:#F7F4EB; --paper2:#EFE9DC; --ink:#0B1C36; --ink2:#54607A;
+  --hair:rgba(11,28,54,.15); --hair2:rgba(11,28,54,.34);
+  --yellow:#FFC72C; --yellow2:#D99E00; --navy-deep:#071426;
+  --red:#B3361B; --ok:#1E7A46;
+  --e:cubic-bezier(.22,1,.36,1);
+  --serif:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --sans:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px;color-scheme:light}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+body.lock{overflow:hidden}
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:2px solid var(--yellow2);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:650;letter-spacing:-.022em;line-height:1.12}
+em{font-style:italic}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:active{transform:translateY(1px)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.section{padding:clamp(68px,8.5vw,118px) 0}
+.ic{width:1.05em;height:1.05em;flex:none;display:inline-block;vertical-align:-.14em}
+mark{background:linear-gradient(100deg,transparent 1%,var(--yellow) 4%,var(--yellow) 96%,transparent 99%);color:inherit;padding:0 .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hide{display:none!important}
+.skip{position:absolute;left:-9999px;top:0;z-index:4001;background:var(--ink);color:var(--paper);padding:12px 18px;text-decoration:none;font-weight:600}
+.skip:focus{left:12px;top:12px}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--yellow);width:0;z-index:600;pointer-events:none}
+/* everything under the gate is invisible & unfocusable until signed in */
+body.gated header.site,body.gated #main,body.gated footer.site,body.gated .tabbar,
+body.gated .super-fab,body.gated .super-panel,body.gated .toasts,body.gated #progress{visibility:hidden}
+
+/* ============ AUTH GATE ============ */
+#gate{position:fixed;inset:0;z-index:3000;display:grid;grid-template-columns:minmax(340px,5fr) 7fr;background:var(--paper);overflow-y:auto}
+#gate.bye{opacity:0;transition:opacity .4s var(--e)}
+.gt-left{background:var(--navy-deep);color:var(--paper);padding:clamp(26px,4vw,56px);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.gt-left::after{content:"";position:absolute;right:-110px;bottom:-110px;width:320px;height:320px;border-radius:50%;border:2px solid rgba(255,199,44,.28)}
+.gt-left::before{content:"";position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;border-radius:50%;border:2px solid rgba(255,199,44,.18)}
+.gt-brand{display:flex;align-items:center;gap:12px}
+.gt-word{font:700 15px/1.2 var(--sans);letter-spacing:.06em}
+.gt-word em{font-style:normal;color:var(--yellow)}
+.gt-mid{margin:auto 0;padding:clamp(28px,4vw,48px) 0;position:relative;z-index:1}
+.gt-mid .hero-pill{margin-bottom:22px}
+.gt-mid h2{font-size:clamp(1.9rem,3.4vw,2.8rem);color:var(--paper);max-width:14ch}
+.gt-mid h2 em{color:var(--yellow)}
+.gt-mid>p{margin-top:16px;color:rgba(247,244,235,.72);max-width:42ch;font-size:15.5px}
+.gt-checks{list-style:none;margin-top:26px;max-width:40ch}
+.gt-checks li{display:flex;gap:11px;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(247,244,235,.12);font-size:14px;color:rgba(247,244,235,.85)}
+.gt-checks .ic{color:var(--yellow)}
+.gt-stats{margin-top:24px;font:600 11px/1.7 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,235,.5)}
+.gt-foot{position:relative;z-index:1}
+.gt-foot-row{display:flex;gap:20px;flex-wrap:wrap}
+.gt-mini{display:flex;gap:8px;align-items:center;font-size:12.5px;color:rgba(247,244,235,.75);text-decoration:none}
+.gt-mini .ic{color:var(--yellow)}
+.gt-mini:hover{color:var(--yellow)}
+.gt-copy{margin-top:16px;font:600 10px/1.6 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:rgba(247,244,235,.35)}
+.gt-right{display:grid;place-items:center;padding:clamp(24px,4vw,48px)}
+.gt-card{width:min(460px,100%);border:1px solid var(--ink);background:var(--paper);box-shadow:12px 12px 0 rgba(11,28,54,.12);padding:clamp(24px,3.2vw,38px)}
+.gt-tabs{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-bottom:26px}
+.gt-tab{padding:13px;font:600 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;transition:.2s}
+.gt-tab.on{background:var(--ink);color:var(--paper)}
+.gt-title{font:650 26px var(--serif);letter-spacing:-.02em;margin-bottom:20px}
+.gt-card .field{margin-bottom:16px}
+.gt-go{width:100%;justify-content:center;margin-top:10px}
+.gt-note{margin-top:18px;font-size:13px;color:var(--ink2)}
+.gt-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.gt-p{font-size:14px;color:var(--ink2);margin:0 0 18px;max-width:38ch}
+.gt-backrow{margin-top:18px}
+.pw{position:relative}
+.pw input{padding-right:44px}
+.pw-btn{position:absolute;right:0;bottom:8px;padding:6px;color:var(--ink2);transition:color .2s}
+.pw-btn:hover{color:var(--ink)}
+.gt-sub{margin-top:18px;font:600 10px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-align:center}
+@media (max-width:920px){
+  #gate{grid-template-columns:1fr}
+  .gt-left{padding:26px 24px}
+  .gt-mid{padding:30px 0 24px}
+  .gt-mid h2{max-width:20ch}
+  .gt-right{padding:24px 16px 40px}
+}
+
+/* ============ account chip / popover ============ */
+.acct{display:none;position:relative;align-items:center;gap:9px;border:1px solid var(--hair2);padding:7px 12px 7px 7px;font:600 12px/1 var(--sans);letter-spacing:.03em;transition:.25s}
+.acct:hover{border-color:var(--ink)}
+body.authed .acct{display:inline-flex}
+.avx{width:28px;height:28px;border-radius:99px;background:var(--yellow);color:var(--ink);display:grid;place-items:center;font:700 11px/1 var(--sans);flex:none}
+.avx.xl{width:46px;height:46px;font-size:15px}
+.acct-pop{position:absolute;top:calc(100% + 10px);right:0;width:236px;background:var(--paper);border:1px solid var(--ink);box-shadow:8px 8px 0 rgba(11,28,54,.14);display:none;z-index:640;text-align:left}
+.acct.open .acct-pop{display:block;animation:fadeUp .25s var(--e)}
+.ap-h{padding:14px;border-bottom:1px solid var(--hair)}
+.ap-h b{display:block;font:600 14px var(--sans)}
+.ap-h span{font-size:12px;color:var(--ink2);word-break:break-all}
+.ap-item{display:flex;width:100%;padding:12px 14px;gap:10px;align-items:center;font:600 11.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.ap-item:hover{background:var(--paper2)}
+.ap-item .ic{color:var(--yellow2)}
+.ap-item.out{color:var(--red)}
+.ap-item.out .ic{color:var(--red)}
+.mm-acct{display:none;align-items:center;gap:13px;padding:16px 0;border-bottom:1px solid var(--hair);margin-bottom:8px}
+body.authed .mm-acct{display:flex}
+.mm-acct b{display:block;font:600 15px var(--sans)}
+.mm-acct span{font-size:12px;color:var(--ink2);word-break:break-all}
+@media (max-width:560px){.acct-n{display:none}.acct{padding:7px}}
+
+/* ============ panes / tabs ============ */
+.pane{display:none}
+.pane.on{display:block;animation:paneIn .3s var(--e)}
+@keyframes paneIn{from{opacity:0}to{opacity:1}}
+.pane>.section:first-child{padding-top:clamp(36px,5vw,64px)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:800;background:var(--paper);border-top:1px solid var(--ink);
+  display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar-in{display:flex;width:100%;max-width:640px}
+.tab{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 2px 9px;
+  color:var(--ink2);font:600 9.5px/1 var(--sans);letter-spacing:.09em;text-transform:uppercase;transition:color .2s}
+.tab .ic{width:20px;height:20px}
+.tab::before{content:"";position:absolute;top:-1px;left:18%;right:18%;height:3px;background:var(--yellow);transform:scaleX(0);transition:transform .3s var(--e)}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--ink)}
+.tab.on::before{transform:scaleX(1)}
+.tab b{position:absolute;top:5px;right:calc(50% - 24px);background:var(--yellow);color:var(--ink);font:700 9px/1 var(--sans);
+  min-width:16px;height:16px;border-radius:99px;display:none;align-items:center;justify-content:center;padding:0 4px}
+.tab b:not([hidden]){display:inline-flex}
+.nextbar{display:flex;justify-content:flex-end;padding:4px 0 30px}
+
+/* ============ utilities ============ */
+.label{font:600 11px/1.5 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:var(--ink2)}
+.label .no{color:var(--yellow2);margin-right:10px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border:1px solid var(--ink);background:transparent;
+  color:var(--ink);font:600 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;transition:background .25s var(--e),color .25s var(--e),border-color .25s var(--e)}
+.btn .ic{transition:transform .25s var(--e)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:hover .ic{transform:translateX(3px)}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.btn-yellow{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.btn-yellow:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.btn.sm{padding:11px 16px}
+.tlink{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--sans);letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;padding:6px 0;border-bottom:1px solid var(--hair2);transition:color .2s,border-color .2s;background:none}
+.tlink:hover{color:var(--yellow2);border-color:var(--yellow2)}
+[data-rv]{opacity:0;transform:translateY(18px);transition:opacity .8s var(--e),transform .8s var(--e);transition-delay:var(--d,0s)}
+[data-rv].in{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.72)}}
+@keyframes pop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.flash{animation:flashSec 1.8s var(--e)}
+@keyframes flashSec{0%{box-shadow:inset 0 0 0 3px var(--yellow)}100%{box-shadow:inset 0 0 0 3px transparent}}
+
+/* ============ header ============ */
+header.site{position:sticky;top:0;z-index:500;background:var(--paper);transition:box-shadow .3s}
+header.site.sc{box-shadow:0 1px 0 var(--ink)}
+.hd{display:flex;align-items:center;gap:26px;height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:34px;height:34px;flex:none}
+.wordmark{font:700 15px/1.1 var(--sans);letter-spacing:.06em;white-space:nowrap}
+.wordmark i{font-style:normal;background:var(--yellow);padding:1px 2px}
+.wordmark small{display:block;font:600 8.5px/1.4 var(--sans);letter-spacing:.22em;color:var(--ink2);margin-top:3px}
+nav.main{display:flex;gap:22px;margin-left:auto}
+nav.main a{position:relative;font:600 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:8px 0;color:var(--ink2);transition:color .2s}
+nav.main a::after{content:"";position:absolute;left:0;bottom:2px;width:100%;height:2px;background:var(--yellow);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--e)}
+nav.main a:hover,nav.main a.active{color:var(--ink)}
+nav.main a.active::after,nav.main a:hover::after{transform:scaleX(1)}
+.hd-r{display:flex;align-items:center;gap:10px}
+.desk-btn{position:relative;font:600 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--hair2);padding:12px 16px;transition:.25s}
+.desk-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.desk-btn b{position:absolute;top:-8px;right:-8px;background:var(--yellow);color:var(--ink);font-size:10px;min-width:18px;height:18px;border-radius:99px;display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:700}
+.desk-btn b.on{display:inline-flex}
+.super-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--hair2);padding:12px 14px;font:600 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;transition:.25s}
+.super-chip:hover{background:var(--yellow);border-color:var(--yellow)}
+.super-chip .dot{width:7px;height:7px;border-radius:99px;background:var(--ok);animation:pulse 1.8s infinite}
+#menuBtn{display:none;padding:10px;border:1px solid var(--hair2)}
+.mmenu{position:fixed;inset:0;z-index:940;background:var(--paper);display:flex;flex-direction:column;padding:24px clamp(20px,6vw,48px);transform:translateY(-102%);transition:transform .45s var(--e)}
+.mmenu.show{transform:none}
+.mmenu-top{display:flex;justify-content:space-between;align-items:center}
+.mmenu nav{display:flex;flex-direction:column;margin-top:3vh}
+.mmenu nav a{font:650 clamp(1.6rem,7.5vw,2.4rem) var(--serif);letter-spacing:-.02em;text-decoration:none;padding:13px 0;border-bottom:1px solid var(--hair)}
+.mmenu nav a span{font:600 11px var(--sans);letter-spacing:.15em;color:var(--yellow2);margin-right:16px;vertical-align:middle}
+.mmenu-ft{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap}
+.ibtn{width:38px;height:38px;border:1px solid var(--hair2);border-radius:99px;display:grid;place-items:center;transition:.2s;flex:none}
+.ibtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ============ hero ============ */
+.hero{padding:clamp(36px,5.5vw,76px) 0 clamp(44px,5.5vw,80px)}
+.hero-pill{display:inline-block;background:var(--yellow);color:var(--ink);font:700 11px/1 var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;padding:11px 18px;box-shadow:5px 5px 0 rgba(11,28,54,.12)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(300px,4fr);gap:clamp(32px,5vw,80px);margin-top:clamp(30px,4vw,54px);align-items:start}
+.hero-h{font-size:clamp(2.3rem,5.5vw,4.5rem);font-weight:690;letter-spacing:-.03em;max-width:16ch}
+.hero-sub{margin-top:24px;max-width:54ch;color:var(--ink2);font-size:17px}
+.hero-sub b{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}
+.cd-inline{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}
+.ledger{border:1px solid var(--ink);background:var(--paper)}
+.lg-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--ink)}
+.lg-live{display:flex;align-items:center;gap:9px;font:600 11px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase}
+.lg-live i{width:7px;height:7px;border-radius:99px;background:var(--yellow2);animation:pulse 1.6s infinite}
+.lg-list{height:296px;overflow:hidden;padding:4px 18px}
+.lrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:11.5px 0;border-bottom:1px solid var(--hair);font-size:13px;align-items:baseline;animation:pop .5s var(--e)}
+.lrow .ln{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lrow .ld{color:var(--ink2)}
+.lrow .lt{color:var(--ink2);font-size:11.5px;white-space:nowrap}
+.lrow.mine .ld,.lrow.mine .lt{color:var(--yellow2);font-weight:600}
+.lg-foot{display:flex;align-items:baseline;gap:12px;padding:14px 18px;border-top:1px solid var(--ink)}
+.lg-count{font:650 30px var(--serif);font-variant-numeric:tabular-nums}
+
+/* ============ stats ============ */
+.stats{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.stats-g{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:28px clamp(16px,2.5vw,36px);border-left:1px solid var(--hair)}
+.stat:first-child{border-left:0;padding-left:2px}
+.stat-n{display:block;font:650 clamp(1.9rem,3.3vw,2.8rem)/1 var(--serif);font-variant-numeric:tabular-nums}
+.stat .label{display:block;margin-top:10px;max-width:22ch}
+
+/* ============ about ============ */
+.about{background:var(--paper2);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.about .wrap{padding-top:clamp(60px,7.5vw,100px);padding-bottom:clamp(60px,7.5vw,100px)}
+.about p.big{font:520 clamp(1.6rem,3.3vw,2.7rem)/1.35 var(--serif);letter-spacing:-.02em;max-width:28ch;margin-top:26px}
+.about p.big em{color:var(--yellow2)}
+.about p.sup{margin-top:24px;max-width:60ch;color:var(--ink2);font-size:16.5px}
+.about p.sup b{color:var(--ink)}
+
+/* ============ section heads ============ */
+.sec-head{display:grid;gap:22px;margin-bottom:clamp(34px,4.5vw,58px)}
+.sec-top{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--ink);padding-top:12px;flex-wrap:wrap}
+.sec-row{display:grid;grid-template-columns:1fr minmax(220px,320px);gap:32px;align-items:end}
+.sec-row h2{font-size:clamp(1.9rem,4.2vw,3.2rem);letter-spacing:-.025em}
+.sec-note{color:var(--ink2);font-size:14.5px;line-height:1.55}
+
+/* ============ programmes ============ */
+.progs{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.prow{border-bottom:1px solid var(--hair)}
+.prow:last-child{border-bottom:0}
+.prow-head{display:block;width:100%;text-align:left;transition:background .28s var(--e),color .28s var(--e)}
+.prow-head:hover,.prow.open .prow-head{background:var(--ink);color:var(--paper)}
+.prow-head:hover .ph-no,.prow.open .ph-no{color:var(--yellow)}
+.ph-g{display:grid;grid-template-columns:60px minmax(0,1fr) auto 44px;gap:22px;align-items:center;padding:23px 0}
+.ph-no{font:700 13px var(--sans);letter-spacing:.08em;color:var(--yellow2);transition:color .28s}
+.ph-t{display:block;font:650 clamp(1.25rem,2.5vw,1.75rem)/1.18 var(--serif);letter-spacing:-.02em}
+.ph-w{display:block;font-size:12.5px;opacity:.65;margin-top:5px}
+.ph-tag{font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.65;white-space:nowrap}
+.ph-x{justify-self:end;width:34px;height:34px;border:1px solid currentColor;border-radius:99px;display:grid;place-items:center;transition:transform .4s var(--e)}
+.prow.open .ph-x{transform:rotate(45deg)}
+.acc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--e)}
+.acc>div{overflow:hidden}
+.open>.acc{grid-template-rows:1fr}
+.pin{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,4vw,64px);padding:14px 0 clamp(38px,4vw,56px)}
+.pin h4{font:600 11px/1 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:var(--ink2);margin:26px 0 10px}
+.pin h4:first-child{margin-top:0}
+.pin p{max-width:58ch;font-size:15.5px;line-height:1.65}
+.pin p.dim{color:var(--ink2)}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:0 18px;border-top:1px solid var(--hair)}
+.kv>div{padding:10px 0;border-bottom:1px solid var(--hair);font-size:14px}
+.kv dt{font:600 10.5px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.kv dd{font-weight:500}
+.apply-r{margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.apply-r .label{max-width:24ch;line-height:1.5}
+/* finder */
+.finder{display:grid;grid-template-columns:minmax(220px,4fr) 8fr;gap:clamp(24px,3.5vw,60px);border:1px solid var(--ink);padding:clamp(22px,3vw,40px);margin-top:clamp(44px,5vw,64px);background:var(--paper)}
+.finder h3{font-size:clamp(1.35rem,2.4vw,1.8rem);margin-top:12px}
+.finder .f-sub{color:var(--ink2);font-size:14.5px;margin-top:10px;max-width:30ch}
+.segw{display:flex;flex-wrap:wrap;gap:8px}
+.segw button{border:1px solid var(--hair2);padding:12px 15px;font:600 11.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;transition:.22s}
+.segw button:hover{border-color:var(--ink)}
+.segw button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.verdict{margin-top:20px;border-top:1px solid var(--hair);padding-top:18px;min-height:118px}
+.verdict .v-t{font:650 clamp(1.15rem,2.2vw,1.5rem) var(--serif);letter-spacing:-.02em}
+.verdict .v-t b{color:var(--yellow2)}
+.verdict p{color:var(--ink2);font-size:14.5px;max-width:56ch;margin-top:8px}
+.verdict>div{animation:fadeUp .4s var(--e)}
+.verdict .btn,.verdict .tlink{margin-top:14px;margin-right:16px}
+
+/* ============ academy ============ */
+.acad-g{display:grid;grid-template-columns:minmax(280px,4fr) 8fr;gap:clamp(24px,3.5vw,56px);align-items:start}
+.clist{border-top:1px solid var(--ink)}
+.citem{display:grid;grid-template-columns:40px 1fr auto;gap:14px;width:100%;text-align:left;align-items:center;padding:17px 12px 17px 2px;border-bottom:1px solid var(--hair);transition:background .25s var(--e),color .25s var(--e)}
+.citem .cno{font:700 12px var(--sans);letter-spacing:.08em;color:var(--yellow2)}
+.citem .ct{display:block;font:650 16.5px var(--serif);letter-spacing:-.01em}
+.citem .cm{display:block;font-size:12px;color:var(--ink2);margin-top:4px}
+.citem .cbar{display:block;width:44px;height:3px;background:var(--hair);position:relative}
+.citem .cbar i{position:absolute;inset:0 auto 0 0;background:var(--yellow2)}
+.citem:hover{background:var(--paper2)}
+.citem.on{background:var(--ink);color:var(--paper)}
+.citem.on .cm{color:rgba(247,244,235,.65)}
+.citem.on .cno{color:var(--yellow)}
+.citem.on .cbar{background:rgba(247,244,235,.25)}
+.cnote{margin-top:16px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.cdetail{border:1px solid var(--ink);padding:clamp(22px,3vw,40px);background:var(--paper)}
+.cd-top h3{font-size:clamp(1.6rem,3vw,2.3rem);margin-top:10px}
+.cd-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;color:var(--ink2);font-size:13px}
+.cd-meta span{display:inline-flex;align-items:center;gap:7px}
+.cd-desc{margin-top:18px;color:var(--ink2);max-width:64ch;font-size:15.5px}
+.prog{margin-top:26px}
+.prog-bar{height:4px;background:var(--hair);position:relative;margin-top:10px}
+.prog-bar i{position:absolute;inset:0 auto 0 0;background:var(--yellow);transition:width .5s var(--e)}
+.prog-l{display:flex;justify-content:space-between;gap:10px}
+.prog-l b{font-variant-numeric:tabular-nums}
+.mods{margin-top:10px;border-top:1px solid var(--hair)}
+.mod{display:grid;grid-template-columns:34px 1fr auto 38px;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--hair)}
+.mod .mno{font:600 11.5px var(--sans);letter-spacing:.06em;color:var(--ink2)}
+.mod .mt{font-size:15px}
+.mod .mskill{font:600 9.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--yellow2);border:1px solid var(--hair);padding:4px 7px;white-space:nowrap}
+.mod .mm{font-size:12px;color:var(--ink2);display:inline-flex;align-items:center;gap:6px}
+.mod>span:last-child{display:flex;gap:10px;align-items:center;justify-content:flex-end}
+.mtg{width:30px;height:30px;border:1px solid var(--hair2);border-radius:99px;display:grid;place-items:center;transition:.22s;color:transparent}
+.mtg:hover{border-color:var(--yellow2)}
+.mod.done .mt{color:var(--ink2)}
+.mod.done .mno{color:var(--yellow2)}
+.mod.done .mtg{background:var(--ink);border-color:var(--ink);color:var(--yellow)}
+.radar-g{display:grid;grid-template-columns:minmax(180px,240px) 1fr;gap:22px;align-items:center;border:1px solid var(--hair);padding:18px;margin-top:26px;background:var(--paper2)}
+.radar-g canvas{width:100%;max-width:240px;height:auto;display:block}
+.radar-txt h4{font:650 17px var(--serif)}
+.radar-txt p{font-size:12.5px;color:var(--ink2);margin-top:6px;max-width:34ch}
+.certline{margin-top:26px;border:1px dashed var(--hair2);padding:20px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.certline p{font-size:13.5px;color:var(--ink2)}
+
+/* ============ applications ============ */
+.apps-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
+.app-card{border:1px solid var(--ink);background:var(--paper);padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:6px 6px 0 rgba(11,28,54,.07)}
+.app-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.app-top h3{font-size:1.2rem}
+.app-co{font-size:12.5px;color:var(--ink2);display:flex;align-items:center;gap:7px;margin-top:4px}
+.badge{font:700 10px/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;padding:7px 10px;white-space:nowrap}
+.bd-review{background:#DCE7F5;color:#17457E}
+.bd-interview{background:var(--yellow);color:var(--ink)}
+.bd-rejected{background:#F3DCD6;color:#8E2A14}
+.bd-received{background:var(--ink);color:var(--paper)}
+.pipe{display:flex;margin-top:4px}
+.pstep{flex:1;text-align:center;position:relative}
+.pstep:not(:last-child)::after{content:"";position:absolute;top:13px;right:-50%;width:100%;height:2px;background:var(--hair);z-index:0}
+.pstep.done:not(:last-child)::after{background:var(--ink)}
+.pstep .pdot{width:27px;height:27px;border-radius:99px;border:1.5px solid var(--hair2);background:var(--paper);display:grid;place-items:center;margin:0 auto 7px;position:relative;z-index:1;color:transparent}
+.pstep .pdot .ic{width:12px;height:12px}
+.pstep.done .pdot{background:var(--ink);border-color:var(--ink);color:var(--yellow)}
+.pstep.cur .pdot{border-color:var(--yellow2);background:var(--yellow);color:var(--ink);box-shadow:0 0 0 4px rgba(255,199,44,.3)}
+.pstep.dead .pdot{border-color:var(--red);color:var(--red)}
+.pstep .pl{font:600 10px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.pstep.cur .pl{color:var(--ink)}
+.pstep.dead .pl{color:var(--red)}
+.app-date{font-size:12.5px;color:var(--ink2);display:inline-flex;align-items:center;gap:7px}
+.app-note{font-size:13.5px;color:var(--ink2);border-top:1px solid var(--hair);padding-top:12px;display:none}
+.app-card.open .app-note{display:block;animation:fadeUp .35s var(--e)}
+.app-note b{color:var(--ink)}
+.app-act{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.wd{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--hair2);padding:2px 0;transition:.2s}
+.wd:hover{color:var(--red);border-color:var(--red)}
+.wd.armed{color:var(--red);border-color:var(--red)}
+
+/* ============ events ============ */
+.evrow{border-top:1px solid var(--hair)}
+.evrow:last-child{border-bottom:1px solid var(--hair)}
+.ev-head{display:grid;grid-template-columns:96px 1fr auto 44px;gap:22px;align-items:center;width:100%;text-align:left;padding:22px 0}
+.ev-date{background:var(--yellow);color:var(--ink);text-align:center;padding:10px 6px;line-height:1.15;box-shadow:4px 4px 0 rgba(11,28,54,.1)}
+.ev-date b{display:block;font:700 22px var(--serif)}
+.ev-date span{font:700 10px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.ev-t{display:block;font:650 clamp(1.15rem,2.2vw,1.5rem) var(--serif);letter-spacing:-.015em}
+.ev-m{display:block;font-size:12.5px;color:var(--ink2);margin-top:5px}
+.ev-x{justify-self:end;width:34px;height:34px;border:1px solid var(--hair2);border-radius:99px;display:grid;place-items:center;transition:transform .4s var(--e)}
+.evrow.open .ev-x{transform:rotate(45deg);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ev-body{padding:0 0 30px;display:grid;grid-template-columns:1.3fr .7fr;gap:32px}
+.ev-body p{font-size:15px;color:var(--ink2);max-width:60ch}
+.ev-body ul{list-style:none;margin-top:12px}
+.ev-body li{padding:7px 0;border-bottom:1px solid var(--hair);font-size:14px;display:flex;gap:10px;align-items:baseline}
+.ev-body li .ic{color:var(--yellow2)}
+.ev-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:16px}
+.ok-note{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ok);display:inline-flex;gap:8px;align-items:center}
+
+/* ============ process ============ */
+.proc-g{display:grid;grid-template-columns:4fr 7fr;gap:clamp(28px,4vw,80px);align-items:start}
+.proc-l{position:sticky;top:104px}
+.proc-l h2{font-size:clamp(1.9rem,3.8vw,3rem);margin-top:20px}
+.proc-l p{color:var(--ink2);margin-top:18px;max-width:38ch;font-size:15.5px}
+.step{display:grid;grid-template-columns:60px 1fr auto;gap:22px;padding:25px 0;border-top:1px solid var(--hair);align-items:start}
+.step:last-child{border-bottom:1px solid var(--hair)}
+.step .s-no{font:650 26px/1.1 var(--serif);color:var(--yellow2)}
+.step h3{font-size:1.25rem}
+.step p{color:var(--ink2);font-size:14.5px;margin-top:8px;max-width:52ch}
+.step .s-w{font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);white-space:nowrap;padding-top:8px}
+
+/* ============ faq ============ */
+.faqrow{border-top:1px solid var(--hair)}
+.faqrow:last-child{border-bottom:1px solid var(--hair)}
+.faq-q{display:grid;grid-template-columns:1fr 34px;gap:18px;width:100%;text-align:left;align-items:center;padding:21px 0}
+.faq-q h3{font-size:clamp(1.02rem,2vw,1.3rem);font-weight:600;transition:color .2s}
+.faq-q:hover h3{color:var(--yellow2)}
+.faq-q .ph-x{width:28px;height:28px}
+.faqrow.open .ph-x{transform:rotate(45deg)}
+.faq-a{color:var(--ink2);font-size:15.5px;max-width:68ch;padding:0 0 25px}
+.faq-a b{color:var(--ink)}
+
+/* ============ profile ============ */
+.psum{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-bottom:clamp(48px,6vw,72px)}
+.psum-card{border:1px solid var(--ink);background:var(--paper);padding:22px;box-shadow:6px 6px 0 rgba(11,28,54,.07)}
+.psum-n{font:650 clamp(1.9rem,3.4vw,2.6rem)/1 var(--serif);font-variant-numeric:tabular-nums;margin:14px 0 8px}
+.psum-n small{font:600 15px var(--sans);color:var(--ink2)}
+.psum-p{font-size:13px;color:var(--ink2);line-height:1.55}
+.psum-a{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}
+.acct-blk{display:flex;align-items:center;gap:14px;margin:14px 0 10px}
+.acct-blk .nm{font:600 17px var(--sans)}
+.acct-blk .psum-p{margin-top:2px}
+.settings-box{border:1px solid var(--ink);background:var(--paper);padding:clamp(20px,3vw,32px);box-shadow:6px 6px 0 rgba(11,28,54,.07)}
+.sett{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair)}
+.sett:last-child{border-bottom:0}
+.sett .st{font-weight:600;font-size:14.5px}
+.sett .sd{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.tgl{position:relative;display:inline-block;width:48px;height:24px;flex:none}
+.tgl input{opacity:0;width:0;height:0}
+.tgl i{position:absolute;cursor:pointer;inset:0;background:var(--hair);transition:.3s;border-radius:99px}
+.tgl i::before{content:"";position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:var(--paper);transition:.3s;border-radius:99px}
+.tgl input:checked+i{background:var(--yellow2)}
+.tgl input:checked+i::before{transform:translateX(24px)}
+
+/* ============ contact ============ */
+.contact-g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px);align-items:start}
+.c-row{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;padding:17px 0;border-bottom:1px solid var(--hair);text-decoration:none;transition:background .2s var(--e)}
+.c-row:first-child{border-top:1px solid var(--ink)}
+a.c-row:hover{background:var(--paper2)}
+a.c-row:hover .c-go{color:var(--yellow2)}
+.c-ic{width:46px;height:46px;border:1px solid var(--ink);display:grid;place-items:center;background:var(--yellow);color:var(--ink)}
+.c-row.hot .c-ic{background:var(--ink);color:var(--yellow)}
+.c-row .c-t{display:block;font:650 16px var(--serif)}
+.c-row .c-d{display:block;font-size:13px;color:var(--ink2);margin-top:2px}
+.c-go{color:var(--ink2)}
+.c-form{border:1px solid var(--ink);padding:clamp(22px,3vw,36px);background:var(--paper);box-shadow:8px 8px 0 rgba(11,28,54,.07)}
+.c-form h3{font-size:1.45rem}
+.c-form .sub{font-size:14px;color:var(--ink2);margin-top:8px}
+.social-row{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.social-row a{width:44px;height:44px;border:1px solid var(--hair2);border-radius:99px;display:grid;place-items:center;transition:.22s;color:var(--ink)}
+.social-row a:hover{background:var(--yellow);border-color:var(--yellow)}
+.fstatus{display:none;align-items:flex-start;gap:10px;margin-top:16px;padding:14px 16px;border:1px solid var(--hair2);font-size:13.5px;line-height:1.5}
+.fstatus.show{display:flex;flex-wrap:wrap}
+.fstatus.ok{border-color:var(--ok);color:#14532D;background:#EAF4EE}
+.fstatus.err{border-color:var(--red);color:#7C2410;background:#F8ECE9}
+.fstatus.info{border-color:var(--yellow2);color:var(--ink);background:#FBF3DC}
+.fstatus .tlink{margin-left:auto;font-size:10px}
+
+/* ============ cta ============ */
+.cta{background:var(--ink);color:var(--paper)}
+.cta .wrap{padding-top:clamp(68px,8.5vw,116px);padding-bottom:clamp(68px,8.5vw,116px)}
+.cta .label{color:rgba(247,244,235,.55)}
+.cta .label .no{color:var(--yellow)}
+.cd-chip{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--yellow);padding:12px 18px;font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,235,.8);margin-top:26px}
+.cd-chip b{font-variant-numeric:tabular-nums;color:var(--yellow);font-size:13px}
+.cta h2{font-size:clamp(2.1rem,5.2vw,4rem);max-width:17ch;margin-top:20px}
+.cta h2 em{color:var(--yellow)}
+.cta-row{display:flex;align-items:center;gap:26px;margin-top:38px;flex-wrap:wrap}
+.cta .tlink{color:var(--paper);border-color:rgba(247,244,235,.35)}
+.cta .tlink:hover{color:var(--yellow);border-color:var(--yellow)}
+
+/* ============ footer ============ */
+footer.site{background:var(--navy-deep);color:var(--paper)}
+.ft-top{display:grid;grid-template-columns:1.5fr repeat(3,minmax(140px,1fr));gap:clamp(28px,4vw,64px);padding:clamp(48px,6vw,80px) 0}
+.ft-word{font:650 clamp(2rem,4.2vw,3.2rem)/1.08 var(--serif);letter-spacing:-.025em}
+.ft-word em{color:var(--yellow)}
+.ft-sub{color:rgba(247,244,235,.6);font-size:14px;margin-top:16px;max-width:32ch}
+.ft-col h4{font:600 11px/1 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:var(--yellow);margin-bottom:16px}
+.ft-col a{display:block;text-decoration:none;font-size:14.5px;padding:5px 0;color:rgba(247,244,235,.78);transition:color .2s}
+.ft-col a:hover{color:var(--yellow)}
+.ft-col p{font-size:14.5px;color:rgba(247,244,235,.6)}
+.ft-col a.icrow{display:flex;gap:10px;align-items:center}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(247,244,235,.14);padding:20px 0 28px;flex-wrap:wrap}
+.ft-bot .label{color:rgba(247,244,235,.5);line-height:1.7}
+.ft-bot .label b{color:var(--yellow);font-weight:600}
+
+/* ============ overlays ============ */
+.scrim{position:fixed;inset:0;background:rgba(7,20,38,.5);z-index:900;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.show{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:960;inset:0;display:grid;place-items:center;padding:20px;pointer-events:none}
+.modal .card{background:var(--paper);border:1px solid var(--ink);width:min(680px,100%);max-height:calc(100vh - 40px);
+  display:flex;flex-direction:column;box-shadow:14px 14px 0 rgba(7,20,38,.18);opacity:0;transform:translateY(24px);
+  transition:opacity .35s var(--e),transform .35s var(--e);pointer-events:none}
+.modal.show .card{opacity:1;transform:none;pointer-events:auto}
+.m-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:22px 26px 18px;border-bottom:1px solid var(--ink)}
+.m-title{font:650 24px var(--serif);margin-top:8px}
+.m-body{padding:26px;overflow-y:auto}
+.m-step{animation:fadeUp .35s var(--e)}
+.m-foot{display:flex;align-items:center;gap:18px;padding:16px 26px;border-top:1px solid var(--hair)}
+.m-bar{flex:1;height:3px;background:var(--hair)}
+.m-bar i{display:block;height:100%;background:var(--yellow2);width:0;transition:width .4s var(--e)}
+.m-actions{display:flex;gap:14px;justify-content:space-between;align-items:center;margin-top:26px;flex-wrap:wrap}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px}
+.field{display:block}
+.field>span{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--ink2);margin-bottom:9px}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--hair2);
+  padding:10px 2px;font:500 15px var(--sans);color:var(--ink);border-radius:0;transition:border-color .2s}
+.field select{appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%230B1C36' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 4px center}
+.field textarea{border:1px solid var(--hair2);padding:14px;min-height:150px;resize:vertical;line-height:1.6}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink)}
+.field.err input,.field.err textarea,.field.err select{border-color:var(--red)}
+.field .fmsg{display:none;font-size:11.5px;color:var(--red);margin-top:7px}
+.field.err .fmsg{display:block}
+.f-note{font-size:12px;color:var(--ink2);display:flex;justify-content:space-between;gap:10px;margin-top:8px}
+.f-note.bad b{color:var(--red)}
+.popt{display:block;position:relative}
+.popt input{position:absolute;opacity:0;pointer-events:none}
+.popt-c{display:grid;grid-template-columns:38px 1fr 30px;gap:14px;align-items:center;border:1px solid var(--hair2);
+  border-bottom:0;padding:16px;transition:.2s;cursor:pointer}
+.popt:last-of-type .popt-c{border-bottom:1px solid var(--hair2)}
+.popt-c b{font:650 17px var(--serif);display:block}
+.popt-c i{font:400 12.5px var(--sans);font-style:normal;color:var(--ink2);display:block;margin-top:3px}
+.popt .chk{color:transparent;transition:color .2s}
+.popt input:checked+.popt-c{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--yellow);background:var(--paper2)}
+.popt input:checked+.popt-c .chk{color:var(--yellow2)}
+.popt input:focus-visible+.popt-c{outline:2px solid var(--yellow2);outline-offset:2px}
+.cvbox{display:flex;align-items:center;gap:14px;border:1px dashed var(--hair2);padding:16px;cursor:pointer;transition:.2s;margin-top:4px}
+.cvbox:hover{border-color:var(--ink)}
+.cvbox input{position:absolute;opacity:0;width:0;height:0}
+.cvbox .ic{width:18px;height:18px}
+.cvbox .cv-t{font-size:13.5px;color:var(--ink2)}
+.cvbox.has .cv-t{color:var(--ink)}
+.chkline{display:flex;gap:12px;align-items:flex-start;margin-top:22px;cursor:pointer}
+.chkline input{appearance:none;width:20px;height:20px;border:1px solid var(--hair2);flex:none;margin-top:2px;cursor:pointer;display:grid;place-items:center}
+.chkline input:checked{background:var(--ink);border-color:var(--ink)}
+.chkline input:checked::after{content:"";width:9px;height:5px;border-left:1.7px solid var(--yellow);border-bottom:1.7px solid var(--yellow);transform:rotate(-45deg) translateY(-1px)}
+.chkline span{font-size:13.5px;color:var(--ink2)}
+.rev{border-top:1px solid var(--hair)}
+.rev-r{display:grid;grid-template-columns:130px 1fr auto;gap:14px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:14px;align-items:baseline}
+.rev-r dt{font:600 10.5px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.rev-r button{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--yellow2);border-bottom:1px solid transparent}
+.rev-r button:hover{border-color:var(--yellow2)}
+.spin{width:14px;height:14px;border:2px solid rgba(247,244,235,.35);border-top-color:var(--paper);border-radius:99px;animation:spin .7s linear infinite}
+.spin.dark{border-color:rgba(11,28,54,.25);border-top-color:var(--ink)}
+.success{text-align:center;padding:10px 0}
+.success .ok{width:56px;height:56px;border:2px solid var(--yellow2);border-radius:99px;display:grid;place-items:center;color:var(--yellow2);margin:0 auto 22px}
+.success .ref{font:650 clamp(1.6rem,4vw,2.4rem) var(--serif);letter-spacing:.01em;margin:14px 0 16px}
+.success p{color:var(--ink2);max-width:46ch;margin:0 auto;font-size:14.5px}
+.success .m-actions{justify-content:center}
+/* drawer */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--paper);border-left:1px solid var(--ink);
+  z-index:950;transform:translateX(102%);transition:transform .45s var(--e);display:flex;flex-direction:column}
+.drawer.show{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 26px 18px;border-bottom:1px solid var(--ink)}
+.d-title{font:650 24px var(--serif);margin-top:8px}
+.d-body{flex:1;overflow-y:auto;padding:8px 26px}
+.d-item{padding:20px 0;border-bottom:1px solid var(--hair)}
+.d-item .d-ref{font:600 12px var(--sans);letter-spacing:.12em;color:var(--yellow2)}
+.d-item h4{font:650 20px var(--serif);margin-top:6px}
+.d-item .d-meta{font-size:12.5px;color:var(--ink2);margin-top:4px}
+.d-item .d-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}
+.d-empty{padding:40px 0;color:var(--ink2);font-size:15px}
+.d-empty b{display:block;font:650 22px var(--serif);color:var(--ink);margin-bottom:10px}
+.d-sec{margin-top:28px}
+.d-sec>h4{font:600 11px/1 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--hair);padding-bottom:10px}
+.d-foot{padding:16px 26px;border-top:1px solid var(--hair)}
+/* cert modal */
+.modal.cert .card{width:min(860px,100%)}
+.cert-c{width:100%;border:1px solid var(--hair2);margin-top:20px;display:block;background:var(--paper2)}
+/* toasts */
+.toasts{position:fixed;left:20px;bottom:calc(96px + env(safe-area-inset-bottom));z-index:1100;display:flex;flex-direction:column;gap:10px}
+.toast{display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);border-left:3px solid var(--yellow);
+  padding:14px 18px;font-size:14px;max-width:340px;box-shadow:8px 8px 0 rgba(7,20,38,.15);animation:fadeUp .35s var(--e)}
+.toast .ic{color:var(--yellow)}
+
+/* ============ SUPER ============ */
+.super-fab{position:fixed;right:24px;bottom:calc(88px + env(safe-area-inset-bottom));z-index:1000;width:62px;height:62px;border-radius:99px;background:var(--ink);
+  color:var(--paper);display:grid;place-items:center;box-shadow:0 10px 26px rgba(7,20,38,.35);transition:transform .25s var(--e),background .25s;border:1px solid var(--ink)}
+.super-fab:hover{transform:translateY(-3px);background:var(--navy-deep)}
+.super-fab .aic{position:absolute;top:-4px;right:-4px;background:var(--yellow);color:var(--ink);font:700 10px/1 var(--sans);
+  letter-spacing:.08em;padding:5px 7px;border-radius:99px;box-shadow:0 2px 6px rgba(7,20,38,.3)}
+.super-fab.nudge{animation:bounceY 1.2s infinite}
+.super-panel{position:fixed;right:24px;bottom:calc(162px + env(safe-area-inset-bottom));z-index:1001;width:min(392px,calc(100vw - 32px));max-height:min(560px,calc(100vh - 260px));
+  background:var(--paper);border:1px solid var(--ink);border-radius:16px;box-shadow:16px 16px 0 rgba(7,20,38,.18);
+  display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;
+  transition:opacity .3s var(--e),transform .3s var(--e)}
+.super-panel.show{opacity:1;transform:none;pointer-events:auto}
+.sp-head{background:var(--ink);color:var(--paper);padding:16px 18px;display:flex;align-items:center;gap:13px}
+.sp-av{width:42px;height:42px;border-radius:99px;background:var(--yellow);color:var(--ink);display:grid;place-items:center;flex:none}
+.sp-name{font:650 17px var(--serif)}
+.sp-name small{display:block;font:600 10px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-top:2px}
+.sp-status{margin-left:auto;text-align:right;font-size:11px;color:rgba(247,244,235,.65);line-height:1.5}
+.sp-status i{display:inline-block;width:7px;height:7px;border-radius:99px;background:#3DDC84;margin-right:5px;animation:pulse 1.8s infinite}
+.sp-close{width:34px;height:34px;border-radius:99px;border:1px solid rgba(247,244,235,.3);display:grid;place-items:center;color:var(--paper);transition:.2s;flex:none}
+.sp-close:hover{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.sp-body{flex:1;overflow-y:auto;padding:16px 14px;background:var(--paper);display:flex;flex-direction:column;gap:12px;min-height:210px}
+.msg{max-width:88%;animation:fadeUp .3s var(--e)}
+.msg.u{align-self:flex-end}
+.msg.b{align-self:flex-start}
+.msg .bub{padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.55}
+.msg.b .bub{background:var(--paper2);border:1px solid var(--hair);border-top-left-radius:4px}
+.msg.u .bub{background:var(--yellow);color:var(--ink);border-top-right-radius:4px;font-weight:500}
+.msg .bub p{margin:0 0 8px}
+.msg .bub p:last-child{margin:0}
+.msg .bub strong{font-weight:700}
+.msg .bub ul{margin:4px 0 8px;padding-left:0;list-style:none}
+.msg .bub li{padding:5px 0;border-bottom:1px dashed var(--hair);font-size:13.5px}
+.msg .bub li:last-of-type{border-bottom:0}
+.msg .tm{display:block;font-size:10px;color:var(--ink2);margin-top:5px;padding:0 3px}
+.typing .bub{display:flex;gap:5px;align-items:center;padding:14px 16px}
+.typing .bub i{width:7px;height:7px;border-radius:99px;background:var(--ink2);animation:pulse 1s infinite}
+.typing .bub i:nth-child(2){animation-delay:.18s}
+.typing .bub i:nth-child(3){animation-delay:.36s}
+.chatcard{border:1px solid var(--ink);background:var(--paper);border-radius:10px;overflow:hidden;margin-top:10px;box-shadow:5px 5px 0 rgba(11,28,54,.08)}
+.cc-head{background:var(--ink);color:var(--paper);padding:9px 13px;font:600 10px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.cc-head .ic{color:var(--yellow)}
+.cc-body{padding:13px}
+.cc-act{display:flex;gap:8px;flex-wrap:wrap;padding:11px 13px;border-top:1px solid var(--hair)}
+.cbtn{border:1px solid var(--hair2);padding:8px 12px;font:600 10.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border-radius:99px;transition:.2s;display:inline-flex;gap:6px;align-items:center}
+.cbtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cbtn.gold{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.cbtn.gold:hover{background:var(--ink);border-color:var(--ink);color:var(--yellow)}
+.cmini{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--hair);font-size:13.5px;text-decoration:none;color:var(--ink)}
+.cmini:last-of-type{border-bottom:0}
+.cmini .ic{color:var(--yellow2)}
+.cmini:hover{color:var(--yellow2)}
+.cmini span{margin-left:auto;font-size:11px;color:var(--ink2)}
+.letterprev{font:500 13px/1.7 var(--sans);white-space:pre-wrap;color:var(--ink);max-height:230px;overflow-y:auto;padding:2px}
+.cvprev{border:1px solid var(--hair);padding:14px;background:var(--paper2)}
+.cvprev h5{font:650 20px var(--serif)}
+.cvprev .l1{font-size:11.5px;color:var(--ink2);border-bottom:2px solid var(--yellow);padding-bottom:8px;margin-bottom:8px}
+.cvprev h6{font:700 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--yellow2);margin:10px 0 5px}
+.cvprev p,.cvprev li{font-size:12.5px;line-height:1.5}
+.cvprev ul{list-style:none}
+.cvprev li{padding:2px 0 2px 14px;position:relative}
+.cvprev li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:2px;background:var(--yellow2)}
+.sp-chips{display:flex;gap:8px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--hair);background:var(--paper2)}
+.sp-chip{border:1px solid var(--hair2);background:var(--paper);border-radius:99px;padding:8px 13px;font:600 11.5px/1 var(--sans);transition:.2s}
+.sp-chip:hover{background:var(--yellow);border-color:var(--yellow)}
+.sp-inrow{display:flex;gap:10px;padding:12px 14px;border-top:1px solid var(--hair);background:var(--paper)}
+.sp-in{flex:1;border:1px solid var(--hair2);border-radius:99px;padding:12px 16px;font:500 14px var(--sans);background:var(--paper);color:var(--ink)}
+.sp-in:focus{outline:none;border-color:var(--ink)}
+.sp-in::placeholder{color:var(--ink2)}
+.sp-send{width:44px;height:44px;border-radius:99px;background:var(--ink);color:var(--yellow);display:grid;place-items:center;transition:.2s;flex:none}
+.sp-send:hover{background:var(--yellow);color:var(--ink)}
+.sp-hint{font-size:10px;color:var(--ink2);text-align:center;padding:0 14px 10px}
+
+/* ============ responsive ============ */
+@media (max-width:1020px){
+  .hero-grid,.acad-g,.proc-g,.contact-g,.finder{grid-template-columns:1fr}
+  .proc-l{position:static}
+}
+@media (max-width:920px){
+  nav.main{display:none}
+  #menuBtn{display:block}
+  .pin{grid-template-columns:1fr}
+  .ev-body{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .stats-g{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0;padding-left:2px}
+  .stat{border-top:1px solid var(--hair)}
+  .stat:nth-child(-n+2){border-top:0}
+  .ph-g{grid-template-columns:42px 1fr 40px}
+  .ph-tag{display:none}
+  .sec-row{grid-template-columns:1fr}
+  .hd-r .super-chip{display:none}
+  .radar-g{grid-template-columns:1fr;justify-items:center}
+  .ev-head{grid-template-columns:80px 1fr 40px}
+  .step{grid-template-columns:44px 1fr}
+  .step .s-w{grid-column:2;padding-top:0}
+  .drawer{width:100%}
+}
+@media (max-width:560px){
+  .fgrid{grid-template-columns:1fr}
+  .hd-r .btn{display:none}
+  .lg-list{height:230px}
+  .super-panel{right:16px}
+  .tab{font-size:8.5px;letter-spacing:.05em}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  [data-rv]{opacity:1;transform:none}
+}
+@media print{
+  .tabbar,.super-fab,.super-panel,#progress,.toasts,#gate{display:none!important}
+  body{padding-bottom:0}
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- icon sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-7 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 13 4 4L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11m-5-4 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7zM14 3v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4.4l3 1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V4H4v12h4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M3 12 21 4l-8 16-2.5-6.5L3 12Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2c1 5 2.5 7.5 9 8-6.5.5-8 3-9 10-1-7-2.5-9.5-9-10 6.5-.5 8-3 9-8Z" fill="currentColor"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m3 7 9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M8.5 15.5a5 5 0 0 1 0-7M15.5 8.5a5 5 0 0 1 0 7M6 18a8.5 8.5 0 0 1 0-12M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 10h16M8 4v4M16 4v4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-bld" viewBox="0 0 24 24"><path d="M4 20V6l7-3v17M11 20h9V10l-9-3M14 12h3M14 16h3M7 9h.01M7 13h.01M7 17h.01" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 11 13M9 6H5v13h13v-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5M6.5 10.5V20h11v-9.5M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 20c1.2-3.6 3.8-5.4 7-5.4s5.8 1.8 7 5.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path d="M4 10v4h3l7 5V5L7 10H4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M12 4H5v16h7M9.5 12H21m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m4 4 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></symbol>
+  <symbol id="i-in" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 148.3z"/></symbol>
+</svg>
+
+<noscript><p style="padding:24px;border-bottom:1px solid #0B1C36">This prototype needs JavaScript. Please enable it.</p></noscript>
+
+<!-- ================================================================ AUTH GATE ================================================================ -->
+<div id="gate" role="dialog" aria-modal="true" aria-label="Sign in to Fortune Intern Network">
+  <aside class="gt-left">
+    <div class="gt-brand">
+      <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+        <g stroke="#FFC72C" stroke-width="2.4" stroke-linecap="round"><path d="M33.5 31h3M30.7 37.7l2.1 2.1M24 40.5v3M17.3 37.7l-2.1 2.1M14.5 31h-3M17.3 24.3l-2.1-2.1M30.7 24.3l2.1-2.1"/></g>
+        <polygon points="24,23 28,31 24,39 20,31" fill="#FFC72C"/><polygon points="24,23 28,31 20,31" fill="#071426"/>
+        <polygon points="24,5 39,11.5 24,18 9,11.5" fill="#F7F4EB"/><path d="M39 11.5v8" stroke="#F7F4EB" stroke-width="1.6"/><circle cx="39" cy="21" r="1.8" fill="#FFC72C"/>
+      </svg>
+      <span class="gt-word">FORTUNE <em>INTERN</em> NETWORK</span>
+    </div>
+    <div class="gt-mid">
+      <span class="hero-pill">Bridging Dreams and Careers</span>
+      <h2>The bridge is for <em>members</em>.</h2>
+      <p>One free account unlocks everything FIN does — the programs, the academy, your application desk, and Super. Nobody crosses without signing in.</p>
+      <ul class="gt-checks">
+        <li><svg class="ic"><use href="#i-check"/></svg>Every program paid — GH₵ 2,400 to 5,000 monthly</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>The Academy: free courses, instant certificates</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Super, your AI assistant — cover letters &amp; CVs</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Your desk, drafts and progress — saved per account</li>
+      </ul>
+      <div class="gt-stats">1,400+ careers · 63 partners · 72h promise</div>
+    </div>
+    <div class="gt-foot">
+      <div class="gt-foot-row">
+        <a class="gt-mini" href="tel:+233257038948"><svg class="ic"><use href="#i-phone"/></svg>+233 25 703 8948</a>
+        <a class="gt-mini" href="https://wa.me/233257038948" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp the desk</a>
+        <a class="gt-mini" href="mailto:fortuneintern.gh@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>fortuneintern.gh@gmail.com</a>
+      </div>
+      <div class="gt-copy">© 2026 Fortune Intern Network · Accra, Ghana</div>
+    </div>
+  </aside>
+
+  <div class="gt-right">
+    <div class="gt-card">
+      <div class="gt-tabs" role="tablist">
+        <button class="gt-tab on" data-gt="in" type="button">Sign in</button>
+        <button class="gt-tab" data-gt="up" type="button">Create account</button>
+      </div>
+
+      <!-- sign in -->
+      <form id="gtIn" novalidate>
+        <div class="gt-title">Welcome back.</div>
+        <label class="field" data-gf="lemail"><span>Email</span><input name="lemail" type="email" autocomplete="email" placeholder="you@university.edu"><span class="fmsg"></span></label>
+        <label class="field pw" data-gf="lpass"><span>Password</span>
+          <input name="lpass" type="password" autocomplete="current-password" placeholder="Your password">
+          <button type="button" class="pw-btn" data-pw aria-label="Show password"><svg class="ic"><use href="#i-eye"/></svg></button>
+          <span class="fmsg"></span></label>
+        <div class="gt-row">
+          <label class="chkline" style="margin-top:6px"><input type="checkbox" name="remember" checked><span>Keep me signed in</span></label>
+          <button type="button" class="tlink" id="gtForgotBtn" style="font-size:10px">Forgot password?</button>
+        </div>
+        <button class="btn btn-primary gt-go" type="submit" id="gtInBtn">Sign in <svg class="ic"><use href="#i-arrow"/></svg></button>
+        <p class="gt-note">New here? <button type="button" class="tlink" data-gt="up" style="border:0;padding:0 0 1px">Create an account</button> — it takes a minute.</p>
+      </form>
+
+      <!-- sign up -->
+      <form id="gtUp" class="hide" novalidate>
+        <div class="gt-title">Create your account.</div>
+        <label class="field" data-gf="uname"><span>Full name</span><input name="uname" autocomplete="name" placeholder="Ama Serwaa"><span class="fmsg"></span></label>
+        <label class="field" data-gf="uemail"><span>Email</span><input name="uemail" type="email" autocomplete="email" placeholder="you@university.edu"><span class="fmsg"></span></label>
+        <label class="field pw" data-gf="upass"><span>Password <i style="font-style:normal;color:var(--ink2)">(6+ characters)</i></span>
+          <input name="upass" type="password" autocomplete="new-password" placeholder="Create a password">
+          <button type="button" class="pw-btn" data-pw aria-label="Show password"><svg class="ic"><use href="#i-eye"/></svg></button>
+          <span class="fmsg"></span></label>
+        <label class="field pw" data-gf="ucpass"><span>Confirm password</span>
+          <input name="ucpass" type="password" autocomplete="new-password" placeholder="Repeat it">
+          <button type="button" class="pw-btn" data-pw aria-label="Show password"><svg class="ic"><use href="#i-eye"/></svg></button>
+          <span class="fmsg"></span></label>
+        <label class="chkline" data-gf="uagree"><input type="checkbox" name="uagree"><span>I agree to honest use: my applications are my own work, and Super may help me draft — but the words are mine.</span></label>
+        <button class="btn btn-primary gt-go" type="submit" id="gtUpBtn">Create account &amp; enter <svg class="ic"><use href="#i-arrow"/></svg></button>
+        <p class="gt-note">Already have one? <button type="button" class="tlink" data-gt="in" style="border:0;padding:0 0 1px">Sign in</button>.</p>
+      </form>
+
+      <!-- forgot -->
+      <div id="gtForgotV" class="hide">
+        <div class="gt-title">Resetting is human here.</div>
+        <p class="gt-p">No password robots on this prototype — the desk in Accra resets it personally. Send your account email through either channel:</p>
+        <a class="cmini" href="mailto:fortuneintern.gh@gmail.com?subject=Password%20reset%20—%20FIN%20account"><svg class="ic"><use href="#i-mail"/></svg>fortuneintern.gh@gmail.com<span>Email</span></a>
+        <a class="cmini" href="https://wa.me/233257038948?text=Hello%20FIN%2C%20I%20need%20a%20password%20reset.%20My%20account%20email%20is%3A" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>+233 25 703 8948<span>WhatsApp</span></a>
+        <div class="gt-backrow"><button class="btn sm" data-gt="in" type="button"><svg class="ic" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg> Back to sign in</button></div>
+      </div>
+    </div>
+    <p class="gt-sub">Everything stays on this device — accounts included</p>
+  </div>
+</div>
+
+<!-- ============ header ============ -->
+<header class="site" id="siteHead">
+  <div class="wrap hd">
+    <a class="brand" href="#top" aria-label="Fortune Intern Network — home">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <g stroke="#D99E00" stroke-width="2.4" stroke-linecap="round">
+          <path d="M33.5 31h3M30.7 37.7l2.1 2.1M24 40.5v3M17.3 37.7l-2.1 2.1M14.5 31h-3M17.3 24.3l-2.1-2.1M30.7 24.3l2.1-2.1"/>
+        </g>
+        <polygon points="24,23 28,31 24,39 20,31" fill="#FFC72C"/>
+        <polygon points="24,23 28,31 20,31" fill="#0B1C36"/>
+        <polygon points="24,5 39,11.5 24,18 9,11.5" fill="#0B1C36"/>
+        <path d="M39 11.5v8" stroke="#0B1C36" stroke-width="1.6"/><circle cx="39" cy="21" r="1.8" fill="#D99E00"/>
+      </svg>
+      <span class="wordmark">FORTUNE <i>INTERN</i> NETWORK<small>Bridging dreams &amp; careers</small></span>
+    </a>
+    <nav class="main" id="navLinks" aria-label="Primary">
+      <a href="#pane-overview" data-tab="overview">Overview</a>
+      <a href="#pane-announcements" data-tab="announcements">Announcements</a>
+      <a href="#pane-programs" data-tab="programs">Programs</a>
+      <a href="#pane-apply" data-tab="apply">Apply</a>
+      <a href="#pane-profile" data-tab="profile">Profile</a>
+    </nav>
+    <div class="hd-r">
+      <button class="super-chip" data-super-open><span class="dot"></span><svg class="ic"><use href="#i-spark"/></svg>Super</button>
+      <button class="acct" id="acctBtn" aria-haspopup="true" aria-expanded="false">
+        <span class="avx" id="acctAv">–</span><span class="acct-n" id="acctName">Account</span>
+        <span class="acct-pop" id="acctPop">
+          <span class="ap-h"><b id="apName"></b><span id="apMail"></span></span>
+          <button class="ap-item" data-tab="profile" type="button"><svg class="ic"><use href="#i-user"/></svg>Your profile</button>
+          <button class="ap-item" data-desk type="button"><svg class="ic"><use href="#i-file"/></svg>Applications</button>
+          <button class="ap-item out" data-out type="button"><svg class="ic"><use href="#i-out"/></svg>Sign out</button>
+        </span>
+      </button>
+      <button class="desk-btn" id="deskBtn">Desk<b id="deskCount" hidden>0</b></button>
+      <button class="btn btn-primary sm" data-apply>Apply</button>
+      <button id="menuBtn" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mmenu" id="mobileMenu" aria-hidden="true">
+  <div class="mmenu-top">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+        <g stroke="#D99E00" stroke-width="2.4" stroke-linecap="round"><path d="M33.5 31h3M30.7 37.7l2.1 2.1M24 40.5v3M17.3 37.7l-2.1 2.1M14.5 31h-3M17.3 24.3l-2.1-2.1M30.7 24.3l2.1-2.1"/></g>
+        <polygon points="24,23 28,31 24,39 20,31" fill="#FFC72C"/><polygon points="24,23 28,31 20,31" fill="#0B1C36"/>
+        <polygon points="24,5 39,11.5 24,18 9,11.5" fill="#0B1C36"/><path d="M39 11.5v8" stroke="#0B1C36" stroke-width="1.6"/><circle cx="39" cy="21" r="1.8" fill="#D99E00"/>
+      </svg>
+      <span class="wordmark">FORTUNE <i>INTERN</i> NETWORK</span>
+    </a>
+    <button class="ibtn" id="menuClose" aria-label="Close menu"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="mm-acct">
+    <span class="avx xl" id="mmAv">–</span>
+    <div style="min-width:0"><b id="mmName"></b><span id="mmMail"></span></div>
+    <button class="tlink" data-out style="margin-left:auto;font-size:10px">Sign out</button>
+  </div>
+  <nav>
+    <a href="#pane-overview" data-tab="overview"><span>01</span>Overview</a>
+    <a href="#pane-announcements" data-tab="announcements"><span>02</span>Announcements</a>
+    <a href="#pane-programs" data-tab="programs"><span>03</span>Programs</a>
+    <a href="#pane-apply" data-tab="apply"><span>04</span>Apply</a>
+    <a href="#pane-profile" data-tab="profile"><span>05</span>Profile</a>
+  </nav>
+  <div class="mmenu-ft">
+    <button class="btn btn-primary" data-apply>Start an application</button>
+    <button class="btn" data-super-open>Ask Super</button>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ============================= OVERVIEW ============================= -->
+<div class="pane on" data-pane="overview" id="pane-overview">
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-pill" data-rv>Unlock your global potential · Bridging Dreams and Careers</span>
+      <div class="hero-grid">
+        <div>
+          <h1 class="hero-h" data-rv style="--d:.05s">Empowering the next generation through <mark>entrepreneurship</mark>, innovation &amp; global opportunity.</h1>
+          <p class="hero-sub" data-rv style="--d:.12s">Fortune Intern Network does one thing, and only one thing: we take students and graduates and bridge them to paid internships, graduate traineeships — and the academy that prepares them for both. <b>Dreams on one side. Careers on the other. We are the crossing.</b></p>
+          <div class="hero-cta" data-rv style="--d:.2s">
+            <a class="btn btn-primary" href="#programs">Explore the programs <svg class="ic"><use href="#i-arrow"/></svg></a>
+            <button class="btn" data-super-open><svg class="ic"><use href="#i-spark"/></svg> Ask Super for help</button>
+            <a class="tlink" href="#academy">Browse the academy <svg class="ic"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="label" data-rv style="--d:.26s;margin-top:26px"><span class="no">Cohort 2026</span>Applications close 30 June — in <b class="cd-inline" id="cdHero">…</b></p>
+        </div>
+        <aside class="ledger" data-rv style="--d:.18s" aria-hidden="true">
+          <div class="lg-head"><span class="lg-live"><i></i>Applications desk</span><span class="label">Today</span></div>
+          <div class="lg-list" id="ledgerList"></div>
+          <div class="lg-foot"><span class="lg-count" id="ledgerCount">12,847</span><span class="label">received at FIN</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats" data-rv>
+    <div class="wrap stats-g">
+      <div class="stat"><b class="stat-n" data-count="1400" data-suffix="+">1,400+</b><span class="label">careers launched since 2018</span></div>
+      <div class="stat"><b class="stat-n" data-count="63">63</b><span class="label">partner companies in Accra &amp; remote</span></div>
+      <div class="stat"><b class="stat-n" data-count="4">4</b><span class="label">flagship programs — every one paid</span></div>
+      <div class="stat"><b class="stat-n" data-count="72" data-suffix="h">72h</b><span class="label">screening promise, every applicant</span></div>
+    </div>
+  </div>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="sec-top" data-rv><span class="label"><span class="no">№ 001</span>Why FIN exists</span><span class="label">Est. 2018 · Accra</span></div>
+      <p class="big" data-rv style="--d:.08s">A dream on one side, a career on the other. <em>We are the bridge</em> — the whole bridge.</p>
+      <p class="sup" data-rv style="--d:.16s">No consultancy arm, no recruiting for other people's desks, no side business. Every member of the FIN team works on one problem: finding talented students and graduates in Ghana and across Africa early, and making them undeniably ready for real work. Programs, academy, events, placement — that is the entire company. <b>If we cannot bridge you yet, we will tell you honestly what to build first.</b></p>
+    </div>
+  </section>
+
+  <div class="wrap nextbar" data-rv>
+    <a class="tlink" href="#pane-programs" data-tab="programs">Next — the programs <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+
+<!-- ============================= ANNOUNCEMENTS ============================= -->
+<div class="pane" data-pane="announcements" id="pane-announcements">
+  <section class="section" id="events">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">01</span>Events &amp; news</span><span class="label">Open to all</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Where the network meets.</h2>
+        <p class="sec-note">Webinars, summits and hiring floors — free for applicants and alumni alike. Registration is one tap and stays on this device.</p>
+      </div>
+    </div>
+    <div class="wrap" id="evRows" data-rv></div>
+  </section>
+
+  <section class="section" id="questions" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-top" data-rv><span class="label"><span class="no">02</span>Questions</span><span class="label">Short answers only</span></div>
+        <div class="sec-row" data-rv style="--d:.08s">
+          <h2>Asked, answered.</h2>
+          <p class="sec-note">Anything else — Super answers instantly on every page, or write to the desk from the Profile tab.</p>
+        </div>
+      </div>
+      <div id="faqRows" data-rv></div>
+    </div>
+  </section>
+
+  <div class="wrap nextbar" data-rv>
+    <a class="tlink" href="#pane-programs" data-tab="programs">Next — the programs <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+
+<!-- ============================= PROGRAMS ============================= -->
+<div class="pane" data-pane="programs" id="pane-programs">
+  <section class="section" id="programs">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">01</span>Featured programs</span><span class="label">All paid · one form</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Four ways across the bridge.</h2>
+        <p class="sec-note">All paid, all small cohorts, all with a named supervisor. One application — if a different program fits you better, we move your file there and tell you we did it.</p>
+      </div>
+    </div>
+    <div class="progs" id="progRows" data-rv></div>
+
+    <div class="wrap">
+      <div class="finder" data-rv>
+        <div>
+          <span class="label">Not sure which is yours?</span>
+          <h3>Find your track.</h3>
+          <p class="f-sub">Tell us where you are in your studies. The routes are strict about timing — the advice isn't.</p>
+        </div>
+        <div>
+          <div class="segw" role="group" aria-label="Your stage">
+            <button data-stage="early">1st–2nd year</button>
+            <button data-stage="penult">Penultimate year</button>
+            <button data-stage="final">Final year</button>
+            <button data-stage="grad">Graduate</button>
+          </div>
+          <div class="verdict" id="verdict"><div><p class="f-sub" style="margin:0">Pick your stage above and Super's colleagues will point you at the right door — or tell you honestly that it opens next year.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="academy" style="padding-top:0">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">02</span>The FIN Academy</span><span class="label">Free for every applicant</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Training that feeds the programs.</h2>
+        <p class="sec-note">Five courses, twenty-three modules, each about ten minutes. Complete a course and issue your certificate — rendered on this device, yours to keep. Every module you finish grows your skill radar below.</p>
+      </div>
+    </div>
+    <div class="wrap acad-g">
+      <div data-rv>
+        <div class="clist" id="courseList"></div>
+        <p class="cnote">Text-and-drill based: no filler. Free from the moment your application is filed — and for alumni, forever.</p>
+      </div>
+      <div class="cdetail" id="courseDetail" data-rv style="--d:.1s"></div>
+    </div>
+  </section>
+
+  <div class="wrap nextbar" data-rv>
+    <a class="tlink" href="#pane-apply" data-tab="apply">Next — apply &amp; track <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+
+<!-- ============================= APPLY ============================= -->
+<div class="pane" data-pane="apply" id="pane-apply">
+  <section class="section" id="process">
+    <div class="wrap proc-g">
+      <div class="proc-l" data-rv>
+        <div class="sec-top"><span class="label"><span class="no">01</span>Process</span></div>
+        <h2>From form to first day.</h2>
+        <p>Five stages, roughly four weeks. Every stage is either paid or scored by a person — usually both. Nobody disappears into a queue.</p>
+        <button class="tlink" data-super-open>Lost? Ask Super to guide you <svg class="ic"><use href="#i-spark"/></svg></button>
+      </div>
+      <div id="procSteps"></div>
+    </div>
+  </section>
+
+  <section class="section" id="applications" style="padding-top:0">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">02</span>My applications</span><span class="label">Track every stage</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Your desk, in the open.</h2>
+        <p class="sec-note">No black holes. Every application moves through four visible stages — Applied, Review, Interview, Offer — and you hear from us at each one. Below: a sample desk. Yours joins it the moment you file.</p>
+      </div>
+    </div>
+    <div class="wrap apps-g" id="appsGrid"></div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="label" data-rv><span class="no">FIN</span>Cohort 2026</span>
+      <h2 data-rv style="--d:.06s">One form. Ten minutes. A career on <em>the other side</em> of the bridge.</h2>
+      <div class="cd-chip" data-rv style="--d:.1s"><svg class="ic"><use href="#i-clock"/></svg>Applications close in <b id="cdCta">…</b></div>
+      <div class="cta-row" data-rv style="--d:.16s">
+        <button class="btn btn-yellow" data-apply>Start an application <svg class="ic"><use href="#i-arrow"/></svg></button>
+        <button class="tlink" data-super-open>Or let Super help you prepare first <svg class="ic"><use href="#i-spark"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap nextbar" data-rv>
+    <a class="tlink" href="#pane-profile" data-tab="profile">Next — your profile &amp; contact <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+
+<!-- ============================= PROFILE ============================= -->
+<div class="pane" data-pane="profile" id="pane-profile">
+  <section class="section" id="profile">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">01</span>Your profile</span><span class="label">Saved to your account</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Everything you've done at FIN.</h2>
+        <p class="sec-note">Your account, applications, academy progress, certificates and Super's drafts — one honest snapshot, updated live. Notification settings sit just below.</p>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="psum" id="profileSum" data-rv></div>
+
+      <div class="sec-top" data-rv style="margin-bottom:22px"><span class="label"><span class="no">02</span>Notification settings</span></div>
+      <div class="settings-box" data-rv style="margin-bottom:clamp(48px,6vw,72px)">
+        <div class="sett">
+          <div><div class="st">Email notifications</div><div class="sd">Daily digest and important updates</div></div>
+          <label class="tgl"><input type="checkbox" data-pref="email"><i></i></label>
+        </div>
+        <div class="sett">
+          <div><div class="st">SMS alerts</div><div class="sd">Interview invitations and urgent updates</div></div>
+          <label class="tgl"><input type="checkbox" data-pref="sms"><i></i></label>
+        </div>
+        <div class="sett">
+          <div><div class="st">New opportunities</div><div class="sd">When a program matches your profile</div></div>
+          <label class="tgl"><input type="checkbox" data-pref="opps"><i></i></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" style="padding-top:0">
+    <div class="wrap sec-head">
+      <div class="sec-top" data-rv><span class="label"><span class="no">03</span>Contact</span><span class="label">Accra, Ghana</span></div>
+      <div class="sec-row" data-rv style="--d:.08s">
+        <h2>Let's connect.</h2>
+        <p class="sec-note">Every channel below is live — hotline and WhatsApp reach a human, the channel broadcasts new programs first, and email gets a reply within 72 hours.</p>
+      </div>
+    </div>
+    <div class="wrap contact-g">
+      <div data-rv>
+        <a class="c-row" href="tel:+233257038948">
+          <span class="c-ic"><svg class="ic"><use href="#i-phone"/></svg></span>
+          <span><span class="c-t">Hotline</span><span class="c-d">+233 25 703 8948 — Mon–Fri, 9:00–17:00 GMT</span></span>
+          <svg class="ic c-go"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="c-row hot" href="https://wa.me/233257038948?text=Hello%20FIN%2C%20I%20have%20a%20question%20about%20your%20programs." target="_blank" rel="noopener">
+          <span class="c-ic"><svg class="ic"><use href="#i-wa"/></svg></span>
+          <span><span class="c-t">WhatsApp</span><span class="c-d">+233 25 703 8948 — chat with a human now</span></span>
+          <svg class="ic c-go"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="c-row" href="https://whatsapp.com/channel/0029Val97zy1yT2BGkOZi511" target="_blank" rel="noopener">
+          <span class="c-ic"><svg class="ic"><use href="#i-wave"/></svg></span>
+          <span><span class="c-t">WhatsApp Channel</span><span class="c-d">Follow the channel — new programs drop here first</span></span>
+          <svg class="ic c-go"><use href="#i-ext"/></svg>
+        </a>
+        <a class="c-row" href="mailto:fortuneintern.gh@gmail.com">
+          <span class="c-ic"><svg class="ic"><use href="#i-mail"/></svg></span>
+          <span><span class="c-t">Email</span><span class="c-d">fortuneintern.gh@gmail.com — replies within 72h</span></span>
+          <svg class="ic c-go"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="c-row" href="https://www.linkedin.com/company/fortune-intern-network/" target="_blank" rel="noopener">
+          <span class="c-ic"><svg class="ic"><use href="#i-in"/></svg></span>
+          <span><span class="c-t">LinkedIn</span><span class="c-d">Fortune Intern Network — company page</span></span>
+          <svg class="ic c-go"><use href="#i-ext"/></svg>
+        </a>
+        <a class="c-row" href="https://maps.google.com/?q=Accra,Ghana" target="_blank" rel="noopener">
+          <span class="c-ic"><svg class="ic"><use href="#i-pin"/></svg></span>
+          <span><span class="c-t">Find us</span><span class="c-d">Accra, Ghana</span></span>
+          <svg class="ic c-go"><use href="#i-arrow"/></svg>
+        </a>
+        <div class="social-row">
+          <a href="https://wa.me/233257038948" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
+          <a href="https://whatsapp.com/channel/0029Val97zy1yT2BGkOZi511" target="_blank" rel="noopener" aria-label="WhatsApp Channel"><svg class="ic"><use href="#i-wave"/></svg></a>
+          <a href="https://www.linkedin.com/company/fortune-intern-network/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>
+          <a href="mailto:fortuneintern.gh@gmail.com" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a>
+        </div>
+      </div>
+      <form class="c-form" id="contactForm" name="fin-contact" data-netlify="true" data-netlify-honeypot="bot-field" data-rv style="--d:.1s" novalidate>
+        <h3>Send us a message</h3>
+        <p class="sub">Straight to the desk in Accra — a person reads it.</p>
+        <input type="hidden" name="form-name" value="fin-contact">
+        <p style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave this blank<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="fgrid" style="margin-top:22px">
+          <label class="field" data-f="cname"><span>Your name</span><input name="cname" placeholder="Ama Serwaa"><span class="fmsg"></span></label>
+          <label class="field" data-f="cemail"><span>Email</span><input name="cemail" type="email" placeholder="you@university.edu"><span class="fmsg"></span></label>
+        </div>
+        <label class="field" style="margin-top:18px" data-f="csubj"><span>Subject</span><input name="csubj" placeholder="How can we help?"><span class="fmsg"></span></label>
+        <label class="field" style="margin-top:18px" data-f="cmsg"><span>Message</span><textarea name="cmsg" rows="5" placeholder="Write your message here…"></textarea><span class="fmsg"></span></label>
+        <button class="btn btn-primary" type="submit" id="cSend" style="margin-top:24px">Send message <svg class="ic"><use href="#i-send"/></svg></button>
+        <div class="fstatus" id="cStatus" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ============ footer ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <div class="ft-word">Fortune <em>Intern</em> Network</div>
+        <p class="ft-sub">One company. One interest: bridging the dreams and careers of students and graduates who trust us with them.</p>
+        <div class="social-row">
+          <a href="https://wa.me/233257038948" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
+          <a href="https://whatsapp.com/channel/0029Val97zy1yT2BGkOZi511" target="_blank" rel="noopener" aria-label="WhatsApp Channel"><svg class="ic"><use href="#i-wave"/></svg></a>
+          <a href="https://www.linkedin.com/company/fortune-intern-network/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Programs</h4>
+        <a href="#programs">Software Engineering</a>
+        <a href="#programs">Data Analytics Fellowship</a>
+        <a href="#programs">Marketing Strategy</a>
+        <a href="#programs">Operations Traineeship</a>
+      </div>
+      <div class="ft-col">
+        <h4>Company</h4>
+        <a href="#about">Why FIN exists</a>
+        <a href="#academy">The Academy</a>
+        <a href="#events">Events &amp; news</a>
+        <a href="#process">How we hire</a>
+        <a href="#questions">Questions</a>
+      </div>
+      <div class="ft-col">
+        <h4>The desk</h4>
+        <a href="#applications">Your applications</a>
+        <a class="icrow" href="tel:+233257038948"><svg class="ic"><use href="#i-phone"/></svg>+233 25 703 8948</a>
+        <a class="icrow" href="https://wa.me/233257038948" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</a>
+        <a class="icrow" href="mailto:fortuneintern.gh@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>fortuneintern.gh@gmail.com</a>
+        <p style="margin-top:10px"><svg class="ic"><use href="#i-pin"/></svg> Accra, Ghana</p>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="label">© 2026 Fortune Intern Network · Accra, Ghana</span>
+      <span class="label"><b>Bridging Dreams and Careers</b> — it is the whole business.</span>
+      <a class="tlink" style="color:var(--paper);border-color:rgba(247,244,235,.3)" href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ overlays ============ -->
+<div class="scrim" id="scrim"></div>
+
+<!-- application modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Start an application">
+  <div class="card">
+    <div class="m-head">
+      <div><span class="label">FIN · Cohort 2026 application</span><div class="m-title" id="mTitle">Start an application</div></div>
+      <button class="ibtn" data-close-modal aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="m-body" id="mBody"></div>
+    <div class="m-foot" id="mFoot">
+      <span class="label" id="mStep">Step 1 of 4</span>
+      <div class="m-bar"><i id="mBarFill"></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- certificate modal -->
+<div class="modal cert" id="certM" role="dialog" aria-modal="true" aria-label="Course certificate">
+  <div class="card">
+    <div class="m-head">
+      <div><span class="label">FIN Academy · Completion</span><div class="m-title">Your certificate</div></div>
+      <button class="ibtn" data-close-cert aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="m-body">
+      <label class="field"><span>Name on the certificate</span><input id="certName" maxlength="40" autocomplete="name"></label>
+      <canvas class="cert-c" id="certCanvas" aria-label="Certificate preview"></canvas>
+      <div class="m-actions">
+        <button class="btn btn-primary" id="certDl">Download PNG <svg class="ic"><use href="#i-dl"/></svg></button>
+        <span class="f-note" style="margin:0">Issued and rendered entirely on this device.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- drawer -->
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Application desk">
+  <div class="d-head">
+    <div><span class="label">Your desk</span><div class="d-title">Applications &amp; drafts</div></div>
+    <button class="ibtn" data-close-drawer aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot"><span class="label">In this prototype, everything stays on your device.</span></div>
+</aside>
+
+<!-- ============ SUPER ============ -->
+<button class="super-fab" id="superFab" data-super-open aria-label="Chat with Super, the FIN AI assistant">
+  <svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2c1 5 2.5 7.5 9 8-6.5.5-8 3-9 10-1-7-2.5-9.5-9-10 6.5-.5 8-3 9-8Z" fill="currentColor"/></svg>
+  <span class="aic">AI</span>
+</button>
+
+<div class="super-panel" id="superPanel" role="dialog" aria-label="Super, AI assistant">
+  <div class="sp-head">
+    <span class="sp-av" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 48 48"><g stroke="#0B1C36" stroke-width="3" stroke-linecap="round"><path d="M33.5 31h3M30.7 37.7l2.1 2.1M24 40.5v3M17.3 37.7l-2.1 2.1M14.5 31h-3M17.3 24.3l-2.1-2.1M30.7 24.3l2.1-2.1"/></g><polygon points="24,23 28,31 24,39 20,31" fill="#F7F4EB"/><polygon points="24,23 28,31 20,31" fill="#0B1C36"/></svg>
+    </span>
+    <div class="sp-name">Super<small>AI Assistant · Fortune Intern Network</small></div>
+    <div class="sp-status"><span><i></i>Online</span><br>replies instantly</div>
+    <button class="sp-close" id="spClose" aria-label="Close chat"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sp-body" id="spBody"></div>
+  <div class="sp-chips" id="spChips"></div>
+  <div class="sp-inrow">
+    <input class="sp-in" id="spInput" placeholder="Ask Super anything…" autocomplete="off" aria-label="Message Super">
+    <button class="sp-send" id="spSend" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button>
+  </div>
+  <div class="sp-hint">Super can guide you, share contacts, and write your cover letter &amp; CV — press Ctrl + K anytime</div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- ============ bottom tab bar ============ -->
+<nav class="tabbar" aria-label="Sections">
+  <div class="tabbar-in">
+    <button class="tab on" data-tab="overview"><svg class="ic"><use href="#i-home"/></svg>Overview</button>
+    <button class="tab" data-tab="announcements"><svg class="ic"><use href="#i-mega"/></svg>Announcements</button>
+    <button class="tab" data-tab="programs"><svg class="ic"><use href="#i-bld"/></svg>Programs</button>
+    <button class="tab" data-tab="apply"><svg class="ic"><use href="#i-send"/></svg>Apply<b id="tabCount" hidden>0</b></button>
+    <button class="tab" data-tab="profile"><svg class="ic"><use href="#i-user"/></svg>Profile</button>
+  </div>
+</nav>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   EMAIL DELIVERY — Option A: deploy to Netlify (auto-detected), enable
+   notifications to fortuneintern.gh@gmail.com. Option B: paste a
+   Formspree endpoint in CONTACT_ENDPOINT. Otherwise falls back to a
+   pre-filled mail app. (Unchanged from the approved build.)
+   ===================================================================== */
+var CONTACT_ENDPOINT='';
+
+var SANS='"Inter","Segoe UI",Arial,sans-serif';
+var SERIF=SANS;
+
+/* =====================================================================
+   AUTH — single-file account system.
+   Accounts live in localStorage under fin_users_v1 (password hashed —
+   prototype-grade). Each account's data is namespaced under
+   fin_u_<email>_<key>. Sessions: localStorage (keep signed in) or
+   sessionStorage. In production, swap this whole block for Supabase
+   Auth / Clerk + a Postgres users table — the app only calls
+   AUTH.user, loadUserData() and logout().
+   ===================================================================== */
+var AUTH={user:null};
+function hashPw(p){
+  var s='fin·'+p+'·v1',h1=0x811c9dc5>>>0,h2=0x12345789>>>0;
+  for(var i=0;i<s.length;i++){
+    h1=((h1^s.charCodeAt(i))*0x01000193)>>>0;
+    h2=((h2+((s.charCodeAt(i)*(i+7))>>>0))>>>0);
+  }
+  return h1.toString(16)+'-'+h2.toString(16);
+}
+function getUsers(){return store.get('fin_users_v1',{})}
+function setUsers(u){store.set('fin_users_v1',u)}
+function initials(n){
+  var p=String(n||'').trim().split(/\s+/);
+  return ((p[0]||'?').charAt(0)+((p[1]||'')?p[1].charAt(0):'')).toUpperCase();
+}
+function ukey(k){return 'fin_u_'+AUTH.user.email+'_'+k}
+function writeSession(remember){
+  var rec={email:AUTH.user.email,ts:Date.now()};
+  try{localStorage.removeItem('fin_session_v1');sessionStorage.removeItem('fin_session_v1');
+    remember?localStorage.setItem('fin_session_v1',JSON.stringify(rec)):sessionStorage.setItem('fin_session_v1',JSON.stringify(rec));
+  }catch(e){}
+}
+function readSession(){
+  try{var v=JSON.parse(localStorage.getItem('fin_session_v1')||sessionStorage.getItem('fin_session_v1'));return v&&v.email?v:null}catch(e){return null}
+}
+function clearSessions(){try{localStorage.removeItem('fin_session_v1');sessionStorage.removeItem('fin_session_v1')}catch(e){}}
+
+var PENDING=null; /* hash deep-link saved while gated */
+
+function loadUserData(){
+  var em=AUTH.user.email;
+  function adopt(k,def,legacy){
+    var v=store.get('fin_u_'+em+'_'+k,null);
+    if(v==null){
+      var l=store.get(legacy,null);
+      if(l!=null){store.set('fin_u_'+em+'_'+k,l);store.del(legacy);return l}
+      return def;
+    }
+    return v;
+  }
+  apps=adopt('apps',[],'fin_apps_v1');
+  acad=adopt('acad',{done:{},certs:{}},'fin_acad_v1');
+  if(!acad.done)acad.done={}; if(!acad.certs)acad.certs={};
+  prefs=adopt('prefs',{email:true,sms:false,opps:false},'fin_prefs_v1');
+  evReg=adopt('events',[],'fin_events_v1');
+  DRAFT=adopt('draft',{cv:null,cover:null},'fin_draft_v1');
+  if(!DRAFT)DRAFT={cv:null,cover:null};
+  var cd=adopt('cform',null,'fin_cform_v1');
+  var f=$('#contactForm');
+  if(f){f.cname.value=(cd&&cd.n)||'';f.cemail.value=(cd&&cd.e)||'';f.csubj.value=(cd&&cd.s)||'';f.cmsg.value=(cd&&cd.m)||''}
+}
+function renderUserData(){
+  topNo=12847+apps.length;
+  renderCourseList();renderCourseDetail();renderApps();renderProfile();renderDesk();
+  $$('input[data-pref]').forEach(function(i){i.checked=!!prefs[i.getAttribute('data-pref')]});
+  updateDeskBadge();
+}
+function enter(email,remember){
+  var users=getUsers(),u=users[email];
+  if(!u)return false;
+  AUTH.user=u;
+  if(remember)writeSession(true); /* only on fresh login */
+  document.body.classList.add('authed');
+  $('#acctAv').textContent=initials(u.name);
+  $('#acctName').textContent=u.name.split(' ')[0];
+  $('#apName').textContent=u.name;
+  $('#apMail').textContent=u.email;
+  $('#mmAv').textContent=initials(u.name);
+  $('#mmName').textContent=u.name;
+  $('#mmMail').textContent=u.email;
+  loadUserData();
+  S.seen=store.get(ukey('seen'),false);
+  renderUserData();
+  hideGate();
+  toast('Akwaaba, '+u.name.split(' ')[0]+' — you\u2019re signed in.');
+  if(PENDING){
+    var h=PENDING;PENDING=null;
+    var hl=document.getElementById(h.slice(1));
+    if(hl){var hp=hl.classList.contains('pane')?hl:hl.closest('.pane');
+      if(hp)setTimeout(function(){showTab(hp.getAttribute('data-pane'),hl.classList.contains('pane')?null:h)},120)}
+  }
+  return true;
+}
+function logout(){
+  clearSessions();
+  AUTH.user=null;
+  document.body.classList.remove('authed');
+  closeAll();$('#superPanel').classList.remove('show');S.panelOpen=false;S.flow=null;
+  var ac=$('#acctBtn');if(ac)ac.classList.remove('open');
+  apps=[];acad={done:{},certs:{}};prefs={email:true,sms:false,opps:false};evReg=[];DRAFT={cv:null,cover:null};
+  entries=entries.filter(function(e){return !e.mine});
+  renderUserData();
+  var f=$('#contactForm');if(f)f.reset();
+  /* reset gate */
+  $('#gtIn').reset();$('#gtUp').reset();
+  $$('#gate .field').forEach(function(x){x.classList.remove('err')});
+  gateView('in');
+  showGate();
+}
+function showGate(){
+  var g=$('#gate');
+  g.classList.remove('hide','bye');
+  document.body.classList.add('gated','lock');
+  setTimeout(function(){var i=$('#gtIn input[name="lemail"]');if(i)i.focus()},150);
+}
+function hideGate(){
+  document.body.classList.remove('lock','gated');
+  var g=$('#gate');
+  g.classList.add('bye');
+  setTimeout(function(){g.classList.add('hide');g.classList.remove('bye')},420);
+}
+function gateView(v){
+  $$('.gt-tab').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-gt')===v)});
+  $('#gtIn').classList.toggle('hide',v!=='in');
+  $('#gtUp').classList.toggle('hide',v!=='up');
+  $('#gtForgotV').classList.add('hide');
+  var f=v==='in'?$('#gtIn input[name="lemail"]'):$('#gtUp input[name="uname"]');
+  setTimeout(function(){if(f)f.focus()},60);
+}
+function gErr(form,name,bad,msg){
+  var el=form.querySelector('[data-gf="'+name+'"]');
+  if(!el)return;
+  el.classList.toggle('err',!!bad);
+  var m=el.querySelector('.fmsg');if(m)m.textContent=bad?msg:'';
+  if(bad){var inp=el.querySelector('input');if(inp)inp.focus()}
+}
+
+/* ================= data ================= */
+var PROGRAMMES=[
+ {id:'software',no:'01',title:'Software Engineering',co:'TechForward Partners',who:'Students & graduates, technical degrees welcome',tag:'Remote · 6 months',
+  pay:'GH₵ 3,800 / month',loc:'Remote (Accra hours)',close:'30 June 2026',cohort:'18 seats',start:'August 2026',
+  blurb:'Six months building production software with a senior engineer as your named supervisor. Modern frameworks, real releases, code review culture from week one — you leave with shipped work on your record, not a certificate of attendance.',
+  whoLong:'Students and graduates with programming coursework or self-taught projects. We do not filter by university — reviewers see your work first and your institution last.',
+  disc:'Web · Mobile · Backend · DevOps · QA',
+  structure:[{w:'M 1',n:'Academy intensive + onboarding',span:1},{w:'M 2–5',n:'Embedded in a product team',span:4},{w:'M 6',n:'Capstone project & review',span:1}]},
+ {id:'data',no:'02',title:'Data Analytics Fellowship',co:'Analytics Core',who:'Penultimate-year students & graduates, any discipline',tag:'Hybrid Accra · 6 months',
+  pay:'GH₵ 3,200 / month stipend',loc:'Hybrid · Accra',close:'30 June 2026',cohort:'12 seats',start:'August 2026',
+  blurb:'A fellowship for people who love messy questions. Spreadsheets, cleaning, dashboards and the storytelling that turns numbers into decisions — ending in a capstone presented to the partner company\u2019s leadership.',
+  whoLong:'Any discipline; comfort with numbers matters more than your major. Evidence of curiosity — a project, a class analysis, a question you chased — beats grades.',
+  disc:'Analysis · Dashboards · Research · Reporting',
+  structure:[{w:'M 1',n:'Analytics bootcamp',span:1},{w:'M 2–5',n:'Live business projects',span:4},{w:'M 6',n:'Capstone & presentation',span:1}]},
+ {id:'marketing',no:'03',title:'Marketing Strategy',co:'BrandSphere',who:'Students & graduates, creative & commercial minds',tag:'On-site Accra · 3 months',
+  pay:'GH₵ 2,400 / month + commission',loc:'On-site · Accra',close:'Rolling — monthly',cohort:'8 seats',start:'Monthly intake',
+  blurb:'Three months inside a real agency account team: positioning, campaigns that convert, and the analytics behind them. Performance is commission-backed — your wins pay, literally.',
+  whoLong:'Any discipline. Bring evidence you can move people: a campaign you ran, content you made, a club you grew.',
+  disc:'Brand · Content · Growth · Analytics',
+  structure:[{w:'W 1–2',n:'Academy + shadowing',span:2},{w:'W 3–10',n:'Live campaign work',span:8},{w:'W 11–12',n:'Review & conversion talk',span:2}]},
+ {id:'operations',no:'04',title:'Global Operations Traineeship',co:'Fortune Intern Network — in-house',who:'Graduates within 3 years, any discipline',tag:'Accra · 12 months rotating',
+  pay:'GH₵ 4,200 rising to 5,000',loc:'Accra · Kaneshie HQ',close:'31 July 2026',cohort:'6 seats',start:'September 2026',
+  blurb:'Twelve months, three four-month rotations across partner success, programs and the academy — the people who run the bridge itself. The deepest seat in the house, and the one we hire future FIN leaders from.',
+  whoLong:'Graduates within three years, any discipline, with evidence of organising things and finishing them.',
+  disc:'Partner success · Programs · Academy ops',
+  structure:[{w:'R 1',n:'Partner success',span:1},{w:'R 2',n:'Programs desk',span:1},{w:'R 3',n:'Academy & graduation',span:1}]}
+];
+
+var VERDICTS={
+ early:{t:'Early — build first.',p:'Programme seats open from penultimate year, and applying earlier just earns a kind no. The Academy and our events are open to you now — that is the honest head start.',cta:'Open the academy',href:'#academy',cta2:'See upcoming events',href2:'#events'},
+ penult:{t:'The internships — <b>Software</b> or <b>Data</b>.',p:'Both are built for penultimate-year students, both paid monthly, both converting strong interns into offers. Marketing also takes monthly intakes if you are the creative kind.',cta:'Apply — Software Engineering',apply:'software',cta2:'Or the Data Fellowship',apply2:'data'},
+ final:{t:'<b>All doors open</b> — this is your year.',p:'Finalists go strongest into Software, Data and Marketing; the Operations Traineeship takes you the moment you graduate. Apply now, start after finals — and the academy is free from today.',cta:'Apply — Data Fellowship',apply:'data',cta2:'Or Operations Traineeship',apply2:'operations'},
+ grad:{t:'Still ours to train.',p:'Within three years of graduating you fit the Fellowship and the Traineeship — both open now. Software Engineering also takes graduates with portfolios. Nothing here expires with age.',cta:'Apply — Traineeship',apply:'operations',cta2:'Or the Fellowship',apply2:'data'}
+};
+
+var SKILLS=['Research','Critical Thinking','Analysis','Writing','Practical','Theory'];
+
+var COURSES=[
+ {id:'found',no:'A1',title:'Career Foundations',level:'Foundations',
+  desc:'The operating manual nobody hands you: the honest CV, interviews without fear, a LinkedIn that works, and email people answer.',
+  modules:[
+    {t:'The honest CV',m:10,s:'Writing'},
+    {t:'Interviews without fear',m:12,s:'Practical'},
+    {t:'A LinkedIn that works',m:9,s:'Writing'},
+    {t:'Email people answer',m:8,s:'Writing'},
+    {t:'Negotiating your worth',m:11,s:'Critical Thinking'}]},
+ {id:'data',no:'A2',title:'Data & Analytics Basics',level:'Core',
+  desc:'From messy data to defensible insight: cleaning, charts that argue, statistical sanity, and the story around the numbers.',
+  modules:[
+    {t:'Spreadsheets that argue',m:12,s:'Analysis'},
+    {t:'Cleaning messy data',m:11,s:'Practical'},
+    {t:'Charts that decide',m:10,s:'Analysis'},
+    {t:'Statistical sanity checks',m:14,s:'Theory'},
+    {t:'Telling stories with data',m:9,s:'Analysis'}]},
+ {id:'soft',no:'A3',title:'Software Craft',level:'Core',
+  desc:'Habits that make teams want you: version control, clean code, testing your own work, and shipping something real.',
+  modules:[
+    {t:'Git & shipping',m:11,s:'Practical'},
+    {t:'Clean code habits',m:12,s:'Theory'},
+    {t:'Testing your own work',m:10,s:'Practical'},
+    {t:'Code review culture',m:8,s:'Critical Thinking'},
+    {t:'Ship a small project',m:15,s:'Practical'}]},
+ {id:'brand',no:'A4',title:'Brand & Marketing Studio',level:'Practice',
+  desc:'Positioning, content that converts, and the analytics behind campaigns — the thinking BrandSphere interns are hired for.',
+  modules:[
+    {t:'Positioning fundamentals',m:10,s:'Critical Thinking'},
+    {t:'Content that converts',m:12,s:'Practical'},
+    {t:'Analytics for marketers',m:11,s:'Analysis'},
+    {t:'Campaign studio drill',m:13,s:'Practical'}]},
+ {id:'research',no:'A5',title:'Research Methods',level:'Foundations',
+  desc:'How to find out things reliably: sources, evidence, and writing it up so people believe you.',
+  modules:[
+    {t:'Strong vs. loud evidence',m:11,s:'Research'},
+    {t:'Asking better questions',m:9,s:'Critical Thinking'},
+    {t:'Fieldwork basics',m:12,s:'Research'},
+    {t:'Writing it up',m:10,s:'Writing'}]}
+];
+
+var DEMO_APPS=[
+ {demo:true,ref:'FIN-26-04412',title:'Tech Innovators Summer 2026',co:'TechForward Partners',status:'review',date:'January 15, 2026',
+  note:'<b>Reviewer note:</b> strong GitHub link, clean answers. Waiting on second reviewer before work sample invite — expected within the week.'},
+ {demo:true,ref:'FIN-26-03987',title:'Data Science Fellowship',co:'Analytics Core',status:'interview',date:'February 2, 2026',
+  note:'<b>You\u2019re through to conversation.</b> A 30-minute call with the Analytics Core team lead — they\u2019ve seen your bootcamp exercise and liked it. Prepare one story about messy data.'},
+ {demo:true,ref:'FIN-25-08733',title:'Creative Marketing Intern',co:'BrandSphere',status:'rejected',date:'December 10, 2025',
+  note:'<b>Honest feedback:</b> the writing sample was strong but the campaign thinking needed numbers. The academy\u2019s Brand & Marketing Studio covers exactly this gap — finish it and reapply next intake.'}
+];
+
+var EVENTS=[
+ {id:'webinar',d:'14',mo:'Jan 26',time:'8:00 PM WIB · online',title:'Business Conference Webinar 2026',
+  m:'Entrepreneurship · Free for applicants & alumni',
+  desc:'An interactive session on business trends and entrepreneurship strategies, with a live Q&A panel of founders who built companies from Accra. Bring questions, leave with contacts.',
+  agenda:['Panel: building from Ghana to the world','Trends: what partners are hiring for in 2026','Live Q&A with the FIN team']},
+ {id:'summit',d:'20',mo:'Mar 26',time:'9:00 AM GMT · Accra',title:'Tech Summit 2026 Announced',
+  m:'Technology · Hiring floor included',
+  desc:'Industry leaders and innovators gather for a full day of technology showcases, panel discussions — and a hiring floor where FIN partners interview on the spot. Resume printed or not, come.',
+  agenda:['Showcase floor: 20+ partner companies','Panels: engineering, data, product','Hiring floor: bring your CV — Super can build it']}
+];
+
+var STEPS=[
+ {no:'01',t:'Apply',w:'Week 0',d:'One form, about ten minutes. No account needed beyond your FIN login, no keyword robots — a person reads every application that arrives.'},
+ {no:'02',t:'Screening',w:'72 hours',d:'Two reviewers score your answers blind — names read last. You hear back within 72 hours, either way. Yes, even to say no.'},
+ {no:'03',t:'Work sample',w:'Week 2',d:'A short, paid exercise that resembles the actual job. No trick puzzles, no group-assessment theatre.'},
+ {no:'04',t:'Conversation',w:'Week 3',d:'A 30-minute conversation with the people you would actually work with. You leave knowing the team.'},
+ {no:'05',t:'Offer & academy',w:'Week 4',d:'Decisions within a week. Your academy track starts before day one — free, and yours to keep either way.'}
+];
+
+var FAQ=[
+ {q:'Why do I need an account?',a:'One free account gates everything: applying, tracking your desk, the academy and its certificates, and Super\u2019s drafts. It keeps your record yours — every application, module and certificate stays attached to your email, on any device you sign in from.'},
+ {q:'Do I need work experience to apply?',a:'No. The programs exist precisely because you do not have any yet. We look for evidence of thinking — coursework, projects, things you have made or organised — not brand names on a CV.'},
+ {q:'Is everything really paid?',a:'Yes — every program, and even the work-sample stage. Software Engineering pays <b>GH₵ 3,800/month</b>, the Data Fellowship <b>GH₵ 3,200 stipend</b>, Marketing <b>GH₵ 2,400 + commission</b>, the Traineeship <b>GH₵ 4,200 rising</b>. Unpaid internships filter for family money, not talent — we refuse to run one.'},
+ {q:'Do I have to be in Accra?',a:'No. Software Engineering is fully remote on Accra hours; the Data Fellowship is hybrid; Marketing and the Traineeship are on-site in Accra. Every listing states its mode honestly.'},
+ {q:'Can undergraduates apply, or only graduates?',a:'Both. Penultimate and final-year students go strongest into the internships; graduates within three years fit the Fellowship and the Traineeship. If the timing is wrong, we say so and tell you when to come back.'},
+ {q:'Can I apply to more than one program?',a:'One per cycle — but the choice is not fatal. If reviewers think a different door fits you better, they move your file there and tell you they did it.'},
+ {q:'What can Super actually do for me?',a:'Super — our AI assistant on the bottom-right of every page — can <b>guide you to anything on this site, hand you every contact channel, write a cover letter with you step by step, and build your CV</b> from a short chat. Your drafts even pre-fill the application form.'}
+];
+
+var NAMES=['Ama Serwaa','Kwabena M.','Adwoa Boateng','Kofi Asante','Nana Yaa','Yaw Osei','Abena K.','Efua D.','Kojo A.','Akosua P.','Dela K.','Zeinab M.','Kojo N.','Elikem D.'];
+var UNIS=['University of Ghana','KNUST','Ashesi University','University of Cape Coast','Academic City','Central University','GTUC','UPSA'];
+var FIELDS=['Computer Science','Business Admin','Economics','Data Science','Marketing','Engineering','Finance','Design'];
+
+/* ================= utils ================= */
+function $(s,c){return (c||document).querySelector(s)}
+function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmt(n){return n.toLocaleString('en-GH')}
+function words(s){return String(s||'').split(/\s+/).filter(Boolean).length}
+function nowTime(){var d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+var store={
+  get:function(k,f){try{var v=JSON.parse(localStorage.getItem(k));return v==null?f:v}catch(e){return f}},
+  set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+  del:function(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var apps=[],acad={done:{},certs:{}},prefs={email:true,sms:false,opps:false},evReg=[],DRAFT={cv:null,cover:null};
+function saveDraft(){store.set(ukey('draft'),DRAFT)}
+
+function toast(msg,icon){
+  var t=document.createElement('div');t.className='toast';
+  t.innerHTML='<svg class="ic"><use href="#i-'+(icon||'check')+'"/></svg><span>'+msg+'</span>';
+  $('#toasts').appendChild(t);
+  setTimeout(function(){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},420)},3600);
+}
+function copyText(txt,okMsg){
+  function fb(){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}ta.remove();toast(okMsg||'Copied to clipboard','copy')}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast(okMsg||'Copied to clipboard','copy')},fb)}
+  else fb();
+}
+function downloadFile(name,content,mime){
+  var b=new Blob([content],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},400);
+}
+
+/* ================= TABS ================= */
+var TABS=['overview','announcements','programs','apply','profile'];
+var CT='overview';
+function showTab(id,scrollSel){
+  if(TABS.indexOf(id)<0)id='overview';
+  CT=id;
+  $$('.pane').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-pane')===id)});
+  $$('.tab').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===id)});
+  $$('#navLinks a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-tab')===id)});
+  if(id==='profile')renderProfile();
+  requestAnimationFrame(function(){
+    if(scrollSel){
+      var el=document.querySelector(scrollSel);
+      if(el){
+        el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+        el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+      }
+    }else{
+      window.scrollTo(0,0);
+    }
+    setTimeout(function(){
+      $$('.pane.on [data-rv]').forEach(function(el){
+        var r=el.getBoundingClientRect();
+        if(r.top<innerHeight*1.15)el.classList.add('in');
+      });
+    },90);
+  });
+}
+function goTo(sel){
+  var el=document.querySelector(sel);if(!el)return;
+  var pane=el.closest('.pane');
+  if(pane){showTab(pane.getAttribute('data-pane'),sel)}
+  else{el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}
+}
+/* any in-page anchor: switch to its tab first, then scroll */
+document.addEventListener('click',function(e){
+  if(!AUTH.user)return;
+  var a=e.target.closest('a[href^="#"]');if(!a)return;
+  if(a.hasAttribute('data-tab'))return;
+  var href=a.getAttribute('href');if(href==='#')return;
+  var id=href.slice(1);
+  if(id==='top'||id==='main'){e.preventDefault();window.scrollTo({top:0,behavior:RM?'auto':'smooth'});return}
+  var el=document.getElementById(id);if(!el)return;
+  e.preventDefault();
+  if(a.closest('#mobileMenu'))setMenu(false);
+  if(el.classList.contains('pane')){showTab(el.getAttribute('data-pane'));return}
+  goTo(href);
+});
+
+/* ================= header / menu / progress ================= */
+var head=$('#siteHead'),progBar=$('#progress');
+window.addEventListener('scroll',function(){
+  head.classList.toggle('sc',window.scrollY>8);
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  progBar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+},{passive:true});
+var menu=$('#mobileMenu');
+function setMenu(open){
+  menu.classList.toggle('show',open);menu.setAttribute('aria-hidden',String(!open));
+  document.body.classList.toggle('lock',open);
+  if(open)$('#menuClose').focus();
+}
+ $('#menuBtn').addEventListener('click',function(){setMenu(true)});
+ $('#menuClose').addEventListener('click',function(){setMenu(false)});
+
+/* reveal + counters */
+if('IntersectionObserver' in window && !RM){
+  var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}})},{threshold:.12});
+  $$('[data-rv]').forEach(function(el){rio.observe(el)});
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){animCount(e.target);cio.unobserve(e.target)}})},{threshold:.5});
+  $$('[data-count]').forEach(function(el){cio.observe(el)});
+}else{$$('[data-rv]').forEach(function(el){el.classList.add('in')})}
+function animCount(el){
+  var target=+el.dataset.count,suf=el.dataset.suffix||'';
+  if(RM){el.textContent=fmt(target)+suf;return}
+  var t0=null,D=1300;
+  function fr(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);
+    el.textContent=fmt(Math.round(target*e))+suf;if(k<1)requestAnimationFrame(fr)}
+  requestAnimationFrame(fr);
+}
+
+/* ================= countdown ================= */
+function nextDeadline(){var n=new Date(),y=n.getFullYear(),d=new Date(y,5,30,23,59,59);if(n>d)d=new Date(y+1,5,30,23,59,59);return d}
+function tickCd(){
+  var ms=nextDeadline()-Date.now();if(ms<0)ms=0;
+  var s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),sec=s%60;
+  var txt=d+'d '+h+'h '+m+'m '+(sec<10?'0':'')+sec+'s';
+  var a=$('#cdHero'),b=$('#cdCta');
+  if(a)a.textContent=txt; if(b)b.textContent=txt;
+}
+tickCd();setInterval(tickCd,1000);
+
+/* ================= live ledger ================= */
+var topNo=12847;
+var ledgerEl=$('#ledgerList'),countEl=$('#ledgerCount');
+var entries=[];
+function rel(ts){var s=(Date.now()-ts)/1e3;if(s<60)return'just now';var m=s/60;if(m<60)return Math.floor(m)+' min ago';return Math.floor(m/60)+' h ago'}
+function renderLedger(){
+  ledgerEl.innerHTML=entries.map(function(e){
+    return '<div class="lrow'+(e.mine?' mine':'')+'">'+
+      '<span class="ln">№ '+fmt(e.no)+'</span>'+
+      '<span class="ld">'+(e.mine?'Your application — on FIN\u2019s desk':esc(e.name)+' · '+esc(e.uni)+' · '+esc(e.field))+'</span>'+
+      '<span class="lt" data-ts="'+e.ts+'">'+rel(e.ts)+'</span></div>';
+  }).join('');
+  countEl.textContent=fmt(topNo);
+}
+function addEntry(mine){
+  topNo++;
+  entries.unshift({no:topNo,name:NAMES[Math.random()*NAMES.length|0],uni:UNIS[Math.random()*UNIS.length|0],field:FIELDS[Math.random()*FIELDS.length|0],ts:Date.now(),mine:!!mine});
+  if(entries.length>6)entries.length=6;
+  renderLedger();
+}
+(function(){
+  var offs=[1,3,6,10,15];
+  for(var i=0;i<5;i++)entries.push({no:topNo-i,name:NAMES[Math.random()*NAMES.length|0],uni:UNIS[Math.random()*UNIS.length|0],field:FIELDS[Math.random()*FIELDS.length|0],ts:Date.now()-offs[i]*6e4});
+  renderLedger();
+  if(!RM)(function tick(){setTimeout(function(){if(!document.hidden)addEntry(false);tick()},5000+Math.random()*6000)})();
+  setInterval(function(){$$('.lt',ledgerEl).forEach(function(el){el.textContent=rel(+el.dataset.ts)})},20000);
+})();
+
+/* ================= programmes ================= */
+function renderProgrammes(){
+  $('#progRows').innerHTML=PROGRAMMES.map(function(p){
+    var segs=p.structure.map(function(s){
+      return '<div style="flex-grow:'+s.span+';border-left:1px solid var(--hair2);padding:10px 12px;min-width:0"><span style="display:block;font:700 10px var(--sans);letter-spacing:.12em;color:var(--yellow2)">'+s.w+'</span><span style="display:block;font-size:12px;line-height:1.35;margin-top:5px">'+s.n+'</span></div>';
+    }).join('');
+    return '<article class="prow" id="prow-'+p.id+'">'+
+      '<button class="prow-head" aria-expanded="false" aria-controls="pb-'+p.id+'"><div class="wrap ph-g">'+
+        '<span class="ph-no">'+p.no+'</span>'+
+        '<span><span class="ph-t">'+p.title+'</span><span class="ph-w">'+p.co+' — '+p.who+'</span></span>'+
+        '<span class="ph-tag">'+p.tag+'</span>'+
+        '<span class="ph-x"><svg class="ic"><use href="#i-plus"/></svg></span>'+
+      '</div></button>'+
+      '<div class="acc" id="pb-'+p.id+'"><div><div class="wrap pin">'+
+        '<div>'+
+          '<h4>The program</h4><p>'+p.blurb+'</p>'+
+          '<h4>Who it\u2019s for</h4><p class="dim">'+p.whoLong+'</p>'+
+          '<h4>Disciplines</h4><p class="dim">'+p.disc+'</p>'+
+        '</div>'+
+        '<div>'+
+          '<dl class="kv">'+
+            '<dt>Partner</dt><dd>'+p.co+'</dd>'+
+            '<dt>Pay</dt><dd>'+p.pay+'</dd>'+
+            '<dt>Mode</dt><dd>'+p.loc+'</dd>'+
+            '<dt>Closes</dt><dd>'+p.close+'</dd>'+
+            '<dt>Cohort</dt><dd>'+p.cohort+'</dd>'+
+            '<dt>Starts</dt><dd>'+p.start+'</dd>'+
+          '</dl>'+
+          '<h4>Structure</h4><div style="display:flex;border:1px solid var(--hair2)">'+segs+'</div>'+
+          '<div class="apply-r">'+
+            '<button class="btn btn-primary" data-apply="'+p.id+'">Apply — '+p.title+' <svg class="ic"><use href="#i-arrow"/></svg></button>'+
+            '<span class="label">One form · ~10 min · no account</span>'+
+          '</div>'+
+        '</div>'+
+      '</div></div></div>'+
+    '</article>';
+  }).join('');
+}
+
+/* ================= academy ================= */
+var curCourse=COURSES[0].id;
+var radarVals=SKILLS.map(function(){return 12});
+var radarAnim=null;
+function doneList(cid){return acad.done[cid]||[]}
+function courseMins(c){return c.modules.reduce(function(a,m){return a+m.m},0)}
+function totalMods(){return COURSES.reduce(function(a,c){return a+c.modules.length},0)}
+function skillScores(){
+  var sc={};SKILLS.forEach(function(s){sc[s]=12});
+  COURSES.forEach(function(c){c.modules.forEach(function(m,i){
+    if((acad.done[c.id]||[]).indexOf(i)>-1)sc[m.s]=Math.min(95,sc[m.s]+16);
+  })});
+  return sc;
+}
+function renderCourseList(){
+  $('#courseList').innerHTML=COURSES.map(function(c){
+    var d=doneList(c.id),pct=Math.round(d.length/c.modules.length*100);
+    return '<button class="citem'+(c.id===curCourse?' on':'')+'" data-course="'+c.id+'">'+
+      '<span class="cno">'+c.no+'</span>'+
+      '<span><span class="ct">'+c.title+'</span><span class="cm">'+c.modules.length+' modules · '+c.level+(acad.certs[c.id]?' · certificated':(pct>0?' · '+pct+'%':''))+'</span></span>'+
+      '<span class="cbar" title="'+pct+'%"><i style="width:'+pct+'%"></i></span>'+
+    '</button>';
+  }).join('');
+}
+function renderCourseDetail(){
+  var c=COURSES.filter(function(x){return x.id===curCourse})[0];
+  var d=doneList(c.id),pct=Math.round(d.length/c.modules.length*100);
+  var cert=acad.certs[c.id];
+  var html=
+    '<div class="cd-top"><div><span class="label"><span class="no">'+c.no+'</span>'+c.level+'</span><h3>'+c.title+'</h3></div></div>'+
+    '<div class="cd-meta"><span><svg class="ic"><use href="#i-clock"/></svg>'+courseMins(c)+' min total</span><span>'+c.modules.length+' modules</span><span>Free for applicants</span></div>'+
+    '<p class="cd-desc">'+c.desc+'</p>'+
+    '<div class="prog"><div class="prog-l"><span class="label">Your progress</span><b>'+d.length+' of '+c.modules.length+' · '+pct+'%</b></div><div class="prog-bar"><i style="width:'+pct+'%"></i></div></div>'+
+    '<div class="mods">'+c.modules.map(function(m,i){
+      var done=d.indexOf(i)>-1;
+      return '<div class="mod'+(done?' done':'')+'">'+
+        '<span class="mno">'+(i+1<10?'0':'')+(i+1)+'</span>'+
+        '<span class="mt">'+m.t+'</span>'+
+        '<span class="mskill">'+m.s+'</span>'+
+        '<span><span class="mm"><svg class="ic"><use href="#i-clock"/></svg>'+m.m+'m</span>'+
+        '<button class="mtg" data-mod="'+i+'" aria-pressed="'+done+'" aria-label="Mark module complete"><svg class="ic"><use href="#i-check"/></svg></button></span>'+
+      '</div>';
+    }).join('')+'</div>'+
+    '<div class="radar-g">'+
+      '<canvas id="radarCv" width="340" height="340" aria-label="Skill radar chart"></canvas>'+
+      '<div class="radar-txt"><h4>Your skill radar</h4><p>Grows as you complete modules — the same six axes partner companies see: '+SKILLS.join(', ').toLowerCase()+'.</p></div>'+
+    '</div>';
+  if(d.length===c.modules.length){
+    html+='<div class="certline">'+
+      (cert
+        ?'<p>Certificate <b style="color:var(--yellow2)">№ '+esc(cert.ref)+'</b> issued '+esc(cert.date)+'.</p><button class="btn sm" data-cert>Re-download <svg class="ic"><use href="#i-dl"/></svg></button>'
+        :'<p>Course complete. Issue your FIN Academy certificate — rendered and sealed on this device.</p><button class="btn btn-primary" data-cert>Issue certificate <svg class="ic"><use href="#i-arrow"/></svg></button>')+
+      '</div>';
+  }
+  $('#courseDetail').innerHTML=html;
+  drawRadar($('#radarCv'),skillScores(),false);
+}
+function toggleModule(cid,i){
+  var d=acad.done[cid]||(acad.done[cid]=[]);
+  var ix=d.indexOf(i);
+  if(ix>-1)d.splice(ix,1);else d.push(i);
+  store.set(ukey('acad'),acad);
+  renderCourseList();renderCourseDetail();
+  if(CT==='profile')renderProfile();
+  var c=COURSES.filter(function(x){return x.id===cid})[0];
+  if(d.length===c.modules.length&&!acad.certs[cid])toast('Course complete — certificate ready to issue');
+}
+function drawRadar(cv,sc,animate){
+  if(!cv)return;
+  var x=cv.getContext('2d'),W=cv.width,cx=W/2,cy=W/2+6,R=W*0.33;
+  var target=SKILLS.map(function(s){return sc[s]});
+  function frame(vals){
+    x.clearRect(0,0,W,W);
+    x.strokeStyle='rgba(11,28,54,.14)';x.lineWidth=1;
+    [0.33,0.66,1].forEach(function(k){
+      x.beginPath();
+      for(var i=0;i<6;i++){var a=-Math.PI/2+i*Math.PI/3,px=cx+Math.cos(a)*R*k,py=cy+Math.sin(a)*R*k;i?x.lineTo(px,py):x.moveTo(px,py)}
+      x.closePath();x.stroke();
+    });
+    for(var i=0;i<6;i++){
+      var a=-Math.PI/2+i*Math.PI/3;
+      x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);x.stroke();
+      x.fillStyle='#54607A';x.font='600 11px '+SANS;x.textAlign='center';x.textBaseline='middle';
+      x.fillText(SKILLS[i].length>15?SKILLS[i].slice(0,14)+'.':SKILLS[i],cx+Math.cos(a)*(R+26),cy+Math.sin(a)*(R+22));
+    }
+    x.beginPath();
+    for(var i=0;i<6;i++){var a=-Math.PI/2+i*Math.PI/3,r=R*vals[i]/100,px=cx+Math.cos(a)*r,py=cy+Math.sin(a)*r;i?x.lineTo(px,py):x.moveTo(px,py)}
+    x.closePath();
+    x.fillStyle='rgba(255,199,44,.28)';x.fill();
+    x.strokeStyle='#D99E00';x.lineWidth=2.2;x.stroke();
+    for(var i=0;i<6;i++){var a=-Math.PI/2+i*Math.PI/3,r=R*vals[i]/100;
+      x.beginPath();x.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r,3.4,0,7);x.fillStyle='#0B1C36';x.fill()}
+  }
+  if(animate&&!RM){
+    var from=radarVals.slice(),t0=null,D=600;
+    cancelAnimationFrame(radarAnim);
+    function step(t){
+      if(!t0)t0=t;var k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);
+      frame(from.map(function(f,i){return f+(target[i]-f)*e}));
+      if(k<1)radarAnim=requestAnimationFrame(step);else radarVals=target.slice();
+    }
+    radarAnim=requestAnimationFrame(step);
+  }else{radarVals=target.slice();frame(target)}
+}
+
+/* ================= certificate ================= */
+var certCtx={cid:null,ref:'',timer:null};
+function openCert(cid){
+  var c=COURSES.filter(function(x){return x.id===cid})[0];
+  certCtx.cid=cid;
+  if(!acad.certs[cid]){
+    certCtx.ref='FIN-A-'+(214+Object.keys(acad.certs).length);
+    acad.certs[cid]={ref:certCtx.ref,name:(AUTH.user&&AUTH.user.name)||'',date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})};
+    store.set(ukey('acad'),acad);
+    toast('Certificate № '+certCtx.ref+' issued');
+    renderCourseList();renderCourseDetail();
+    if(CT==='profile')renderProfile();
+  }
+  certCtx.ref=acad.certs[cid].ref;
+  $('#certName').value=acad.certs[cid].name||'';
+  showLayer('#certM',true);
+  drawCert($('#certCanvas'),c,$('#certName').value,certCtx.ref);
+  $('#certName').focus();
+}
+function circText(x,t,cx,cy,r,color){
+  x.fillStyle=color;x.font='700 15px '+SANS;x.textAlign='center';x.textBaseline='middle';
+  for(var i=0;i<t.length;i++){
+    var a=(i/t.length)*Math.PI*2-Math.PI/2;
+    x.save();x.translate(cx,cy);x.rotate(a);x.translate(0,-r);x.fillText(t[i],0,0);x.restore();
+  }
+}
+function drawCert(canvas,c,name,ref){
+  var W=1600,H=1131;canvas.width=W;canvas.height=H;
+  var x=canvas.getContext('2d');
+  var done=function(){
+    x.fillStyle='#F7F4EB';x.fillRect(0,0,W,H);
+    x.strokeStyle='#0B1C36';x.lineWidth=4;x.strokeRect(46,46,W-92,H-92);
+    x.lineWidth=1.4;x.strokeRect(64,64,W-128,H-128);
+    x.textAlign='center';x.textBaseline='alphabetic';
+    /* glyph */
+    x.save();x.translate(W/2-27,110);
+    x.fillStyle='#0B1C36';
+    x.beginPath();x.moveTo(27,0);x.lineTo(66,17);x.lineTo(27,34);x.lineTo(-12,17);x.closePath();x.fill();
+    x.strokeStyle='#0B1C36';x.lineWidth=4;x.beginPath();x.moveTo(66,17);x.lineTo(66,42);x.stroke();
+    x.fillStyle='#D99E00';x.beginPath();x.arc(66,50,6,0,7);x.fill();
+    x.strokeStyle='#D99E00';x.lineWidth=6;x.lineCap='round';
+    var cx0=27,cy0=92;
+    for(var i=0;i<8;i++){var a=Math.PI/8+i*Math.PI/4;x.beginPath();x.moveTo(cx0+Math.cos(a)*57,cy0+Math.sin(a)*57);x.lineTo(cx0+Math.cos(a)*75,cy0+Math.sin(a)*75);x.stroke()}
+    x.fillStyle='#FFC72C';x.beginPath();x.moveTo(cx0,cy0-46);x.lineTo(cx0+26,cy0);x.lineTo(cx0,cy0+46);x.lineTo(cx0-26,cy0);x.closePath();x.fill();
+    x.fillStyle='#0B1C36';x.beginPath();x.moveTo(cx0,cy0-46);x.lineTo(cx0+26,cy0);x.lineTo(cx0-26,cy0);x.closePath();x.fill();
+    x.restore();
+    x.font='700 26px '+SANS;x.fillStyle='#0B1C36';x.fillText('F O R T U N E   I N T E R N   N E T W O R K',W/2,300);
+    x.font='500 19px '+SANS;x.fillStyle='#54607A';x.fillText('THE ACADEMY · BRIDGING DREAMS AND CAREERS · ACCRA',W/2,336);
+    x.font='600 52px '+SANS;x.fillStyle='#0B1C36';x.fillText('Certificate of Completion',W/2,444);
+    var nm=(name||'').trim()||'Your Name';
+    var fs=92;x.font='700 '+fs+'px '+SANS;
+    while(x.measureText(nm).width>W-340&&fs>36){fs-=4;x.font='700 '+fs+'px '+SANS}
+    x.fillText(nm,W/2,582);
+    x.fillStyle='#FFC72C';x.fillRect(W/2-58,616,116,7);
+    x.font='500 21px '+SANS;x.fillStyle='#54607A';x.fillText('H A S   C O M P L E T E D   T H E   C O U R S E',W/2,690);
+    x.fillStyle='#0B1C36';x.font='600 50px '+SANS;x.fillText(c.title,W/2,766);
+    x.font='500 21px '+SANS;x.fillStyle='#54607A';x.fillText(c.modules.length+' modules · '+courseMins(c)+' minutes · '+c.level,W/2,818);
+    var y0=H-140;
+    x.strokeStyle='#0B1C36';x.lineWidth=2;x.beginPath();x.moveTo(170,y0-58);x.lineTo(560,y0-58);x.stroke();
+    x.save();x.translate(365,y0-84);x.rotate(-0.035);
+    x.font='600 44px '+SANS;x.fillStyle='#0B1C36';x.fillText('Adwoa Mensah',0,0);x.restore();
+    x.textAlign='left';x.font='500 17px '+SANS;x.fillStyle='#54607A';
+    x.fillText('H E A D   O F   T H E   F I N   A C A D E M Y',170,y0-28);
+    var sx=W-310,sy=y0-86;
+    x.fillStyle='#FFC72C';x.beginPath();x.arc(sx,sy,116,0,7);x.fill();
+    x.strokeStyle='#0B1C36';x.lineWidth=3;x.beginPath();x.arc(sx,sy,116,0,7);x.stroke();
+    x.lineWidth=1.4;x.beginPath();x.arc(sx,sy,86,0,7);x.stroke();
+    circText(x,'BRIDGING DREAMS · AND CAREERS · ACCRA · ',sx,sy,99,'#0B1C36');
+    x.fillStyle='#0B1C36';x.beginPath();x.arc(sx,sy,56,0,7);x.fill();
+    x.fillStyle='#FFC72C';x.beginPath();x.moveTo(sx,sy-36);x.lineTo(sx+22,sy);x.lineTo(sx,sy+36);x.lineTo(sx-22,sy);x.closePath();x.fill();
+    x.fillStyle='#F7F4EB';x.beginPath();x.moveTo(sx,sy-36);x.lineTo(sx+22,sy);x.lineTo(sx-22,sy);x.closePath();x.fill();
+    x.textAlign='center';x.font='500 18px '+SANS;x.fillStyle='#54607A';
+    x.fillText('Certificate № '+ref+' · Issued '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W/2,H-84);
+  };
+  var p=Promise.resolve();
+  if(document.fonts&&document.fonts.load){p=Promise.all(['700 26px Inter','700 92px Inter','600 52px Inter','600 44px Inter','500 21px Inter'].map(function(f){return document.fonts.load(f)})).catch(function(){})}
+  p.then(done);
+}
+
+/* ================= applications ================= */
+var STATUS={
+  received:{b:'bd-received',t:'Received',done:0,cur:0},
+  review:{b:'bd-review',t:'In Review',done:1,cur:1},
+  interview:{b:'bd-interview',t:'Interview',done:2,cur:2},
+  offer:{b:'bd-offer',t:'Offer',done:4,cur:-1},
+  rejected:{b:'bd-rejected',t:'Rejected',done:2,dead:2,cur:-1}
+};
+var PIPE=['Applied','Review','Interview','Offer'];
+function pipeHTML(st){
+  var s=STATUS[st];
+  return '<div class="pipe">'+PIPE.map(function(l,i){
+    var cls=i<s.done?'done':(s.dead===i?'dead':(i===s.cur?'cur':''));
+    var ic=i<s.done?'<svg class="ic"><use href="#i-check"/></svg>':(cls==='dead'?'<svg class="ic"><use href="#i-x"/></svg>':'');
+    return '<div class="pstep '+cls+'"><span class="pdot">'+ic+'</span><span class="pl">'+l+'</span></div>';
+  }).join('')+'</div>';
+}
+function renderApps(){
+  var all=apps.map(function(a){return{mine:true,ref:a.ref,title:a.title,co:a.co||'Fortune Intern Network',status:'received',
+    date:new Date(a.ts).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),
+    note:'<b>On the desk.</b> Two reviewers score it blind within 72 hours — you\u2019ll hear either way. Meanwhile the academy is free for you.'}})
+    .concat(DEMO_APPS);
+  $('#appsGrid').innerHTML=all.map(function(a,i){
+    var s=STATUS[a.status];
+    return '<div class="app-card" id="app-'+i+'">'+
+      '<div class="app-top"><div><h3>'+esc(a.title)+'</h3><span class="app-co"><svg class="ic"><use href="#i-bld"/></svg>'+esc(a.co)+(a.mine?'':' · sample')+'</span></div>'+
+      '<span class="badge '+s.b+'">'+s.t+'</span></div>'+
+      pipeHTML(a.status)+
+      '<span class="app-date"><svg class="ic"><use href="#i-cal"/></svg> Applied '+a.date+' · № '+esc(a.ref)+'</span>'+
+      '<div class="app-note">'+a.note+(a.status==='rejected'?' <button class="tlink" style="font-size:10px" data-super-ask="I was rejected. How do I improve?">Ask Super how to improve <svg class="ic"><use href="#i-spark"/></svg></button>':'')+'</div>'+
+      '<div class="app-act"><button class="btn sm" data-appdet="'+i+'">View details</button>'+
+      (a.mine?'<button class="wd" data-wd="'+esc(a.ref)+'">Withdraw</button>':'')+'</div>'+
+    '</div>';
+  }).join('');
+  updateDeskBadge();
+}
+
+/* ================= events ================= */
+function renderEvents(){
+  $('#evRows').innerHTML=EVENTS.map(function(e){
+    var reg=evReg.indexOf(e.id)>-1;
+    return '<div class="evrow" id="ev-'+e.id+'">'+
+      '<button class="ev-head" aria-expanded="false" aria-controls="evb-'+e.id+'">'+
+        '<span class="ev-date"><b>'+e.d+'</b><span>'+e.mo+'</span></span>'+
+        '<span><span class="ev-t">'+e.title+'</span><span class="ev-m">'+e.time+' — '+e.m+'</span></span>'+
+        '<span></span><span class="ev-x"><svg class="ic"><use href="#i-plus"/></svg></span>'+
+      '</button>'+
+      '<div class="acc" id="evb-'+e.id+'"><div><div class="ev-body">'+
+        '<div><p>'+e.desc+'</p><ul>'+e.agenda.map(function(a){return '<li><svg class="ic"><use href="#i-check"/></svg>'+a+'</li>'}).join('')+'</ul></div>'+
+        '<div class="ev-cta">'+(reg
+          ?'<span class="ok-note"><svg class="ic"><use href="#i-check"/></svg>You\u2019re registered</span><button class="btn sm" data-evcal>Add a reminder</button>'
+          :'<button class="btn btn-primary sm" data-evreg="'+e.id+'">Register free <svg class="ic"><use href="#i-check"/></svg></button>')+
+        '</div>'+
+      '</div></div></div>'+
+    '</div>';
+  }).join('');
+}
+
+/* ================= process + faq ================= */
+function renderProcess(){
+  $('#procSteps').innerHTML=STEPS.map(function(s,i){
+    return '<div class="step" data-rv style="--d:'+(i*.06)+'s"><span class="s-no">'+s.no+'</span><div><h3>'+s.t+'</h3><p>'+s.d+'</p></div><span class="s-w">'+s.w+'</span></div>';
+  }).join('');
+  if('IntersectionObserver' in window&&!RM){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}})},{threshold:.1});$$('#procSteps [data-rv]').forEach(function(el){o.observe(el)})}
+  else $$('#procSteps [data-rv]').forEach(function(el){el.classList.add('in')});
+}
+function renderFaq(){
+  $('#faqRows').innerHTML=FAQ.map(function(f,i){
+    return '<div class="faqrow"><button class="faq-q" aria-expanded="false" aria-controls="fa-'+i+'"><h3>'+f.q+'</h3><span class="ph-x"><svg class="ic"><use href="#i-plus"/></svg></span></button><div class="acc" id="fa-'+i+'"><div><p class="faq-a">'+f.a+'</p></div></div></div>';
+  }).join('');
+}
+
+/* ================= profile summary ================= */
+function renderProfile(){
+  var el=$('#profileSum');if(!el)return;
+  var certs=0;for(var k in acad.certs)certs++;
+  var mods=0;COURSES.forEach(function(c){mods+=(acad.done[c.id]||[]).length});
+  var dCover=DRAFT.cover,dCv=DRAFT.cv;
+  var u=AUTH.user||{name:'—',email:'—',created:''};
+  var since=u.created?new Date(u.created).toLocaleDateString('en-GB',{month:'long',year:'numeric'}):'today';
+  el.innerHTML=
+  '<div class="psum-card"><span class="label">Account</span>'+
+  '<div class="acct-blk"><span class="avx xl">'+esc(initials(u.name))+'</span>'+
+  '<div style="min-width:0"><div class="nm">'+esc(u.name)+'</div><div class="psum-p">'+esc(u.email)+'</div><div class="psum-p">Member since '+esc(since)+'</div></div></div>'+
+  '<div class="psum-a"><button class="tlink" data-out>Sign out <svg class="ic"><use href="#i-out"/></svg></button></div></div>'+
+  '<div class="psum-card"><span class="label">Applications</span><div class="psum-n">'+apps.length+'</div>'+
+  '<p class="psum-p">'+(apps.length?'Filed this season — every stage tracked on the open desk.':'None yet. The form takes ten minutes and Super can pre-fill it.')+'</p>'+
+  '<div class="psum-a"><button class="tlink" data-desk>Open the desk <svg class="ic"><use href="#i-arrow"/></svg></button>'+
+  (apps.length?'':'<button class="tlink" data-apply>Start one <svg class="ic"><use href="#i-arrow"/></svg></button>')+'</div></div>'+
+  '<div class="psum-card"><span class="label">Academy</span><div class="psum-n">'+mods+'<small> / '+totalMods()+' modules</small></div>'+
+  '<p class="psum-p">'+(certs?certs+' certificate'+(certs>1?'s':'')+' issued to your name.':'No certificates yet — finish any course to issue one instantly.')+'</p>'+
+  '<div class="psum-a"><a class="tlink" href="#academy">Continue learning <svg class="ic"><use href="#i-arrow"/></svg></a></div></div>'+
+  '<div class="psum-card"><span class="label">Super\u2019s drafts</span><div class="psum-n">'+((dCover?1:0)+(dCv?1:0))+'</div>'+
+  '<p class="psum-p">'+(dCover||dCv
+    ?(dCover?'Cover letter — '+esc(dCover.data.program||'FIN')+'. ':'')+(dCv?'CV — '+esc(dCv.name)+'.':'')
+    :'Nothing yet. Ask Super to write a cover letter or build your CV — drafts land here and pre-fill the form.')+'</p>'+
+  '<div class="psum-a">'+
+  (dCover?'<button class="tlink" data-super-ask="Show me my cover letter again">Open letter <svg class="ic"><use href="#i-spark"/></svg></button>':'')+
+  (dCv?'<button class="tlink" data-super-ask="Show me my CV again">Open CV <svg class="ic"><use href="#i-spark"/></svg></button>':'')+
+  (!dCover&&!dCv?'<button class="tlink" data-super-open>Ask Super <svg class="ic"><use href="#i-spark"/></svg></button>':'')+
+  '</div></div>';
+}
+
+/* ================= layers ================= */
+function showLayer(sel,open){
+  $(sel).classList.toggle('show',open);
+  var any=$('#modal').classList.contains('show')||$('#drawer').classList.contains('show')||$('#certM').classList.contains('show')||menu.classList.contains('show')||S.panelOpen;
+  document.body.classList.toggle('lock',any);
+  $('#scrim').classList.toggle('show',$('#modal').classList.contains('show')||$('#drawer').classList.contains('show')||$('#certM').classList.contains('show'));
+}
+function closeAll(){
+  ['#modal','#certM'].forEach(function(s){$(s).classList.remove('show')});
+  $('#drawer').classList.remove('show');
+  $('#scrim').classList.remove('show');
+  menu.classList.remove('show');menu.setAttribute('aria-hidden','true');
+  document.body.classList.remove('lock');
+}
+
+/* ================= application modal ================= */
+var M={step:1,d:{}};
+var YEARS=['','2025','2026','2027','2028','2029','2030'];
+function draftSeed(){
+  var d={prog:'',name:'',email:'',uni:'',study:'',year:'',why:'',cv:null,ok:false};
+  d.name=AUTH.user.name;d.email=AUTH.user.email;
+  if(DRAFT.cv){d.uni=DRAFT.cv.uni||'';d.study=DRAFT.cv.study||'';d.year=DRAFT.cv.year||''}
+  if(DRAFT.cover&&DRAFT.cover.data){
+    if(!words(d.why)&&DRAFT.cover.data.strengths)d.why='My strengths: '+DRAFT.cover.data.strengths+'. Proudest achievement: '+DRAFT.cover.data.achievement+'. I am applying through FIN to turn both into real work.';
+  }
+  return d;
+}
+function openModal(progId){
+  closeAll();superClose(true);
+  M.step=1;M.d=draftSeed();if(progId)M.d.prog=progId;
+  showLayer('#modal',true);renderModal();
+  var f=$('#mBody').querySelector('input:not([disabled]),button');if(f)f.focus();
+}
+function closeModal(){showLayer('#modal',false);closeAll()}
+function fieldHTML(label,name,val,ph,type){
+  return '<label class="field" data-f="'+name+'"><span>'+label+'</span>'+
+    '<input name="'+name+'" type="'+(type||'text')+'" value="'+esc(val)+'" placeholder="'+esc(ph||'')+'" autocomplete="off">'+
+    '<span class="fmsg"></span></label>';
+}
+function progTitle(id){var p=PROGRAMMES.filter(function(x){return x.id===id})[0];return p?p.title:'—'}
+function receiptText(){
+  var a=apps[0];if(!a)return'';
+  return 'FORTUNE INTERN NETWORK — APPLICATION RECEIPT\n'+
+    '================================================\n\n'+
+    'Reference      : '+a.ref+'\n'+
+    'Program        : '+a.title+'\n'+
+    'Account        : '+AUTH.user.name+' <'+AUTH.user.email+'>\n'+
+    'University     : '+a.uni+'\n'+
+    'Field of study : '+a.study+'\n'+
+    'Graduation     : '+a.year+'\n'+
+    'Filed          : '+new Date(a.ts).toLocaleString('en-GB')+'\n'+
+    'Deadline       : 30 June '+new Date().getFullYear()+' — 23:59 GMT\n\n'+
+    'WHAT HAPPENS NEXT\n'+
+    'Two reviewers score your answers blind within 72 hours.\n'+
+    'Track every stage under "Apply" on the site.\n\n'+
+    'THE DESK\n'+
+    'Hotline / WhatsApp : +233 25 703 8948\n'+
+    'Email              : fortuneintern.gh@gmail.com\n'+
+    'LinkedIn           : linkedin.com/company/fortune-intern-network\n'+
+    'Office             : Accra, Ghana\n\n'+
+    'Bridging Dreams and Careers — it is the whole business.\n';
+}
+function renderModal(){
+  var b=$('#mBody'),d=M.d,st=M.step;
+  $('#mFoot').style.display=st===5?'none':'flex';
+  $('#mStep').textContent='Step '+st+' of 4';
+  $('#mBarFill').style.width=(st===5?100:st*25)+'%';
+  $('#mTitle').textContent=st===5?'Filed.':'Start an application';
+  if(st===1){
+    b.innerHTML='<div class="m-step"><p style="color:var(--ink2);font-size:14px;margin-bottom:20px">Which program? You can change this later — reviewers reroute files that fit better elsewhere.</p>'+
+      PROGRAMMES.map(function(p){
+        return '<label class="popt"><input type="radio" name="prog" value="'+p.id+'"'+(d.prog===p.id?' checked':'')+'>'+
+        '<span class="popt-c"><span class="ph-no" style="font-size:12px;color:var(--yellow2)">'+p.no+'</span><span><b>'+p.title+'</b><i>'+p.co+' — '+p.tag+'</i></span><span class="chk"><svg class="ic"><use href="#i-check"/></svg></span></span></label>';
+      }).join('')+
+      '<div class="m-actions"><span></span><button class="btn btn-primary" data-act="next">Continue <svg class="ic"><use href="#i-arrow"/></svg></button></div></div>';
+  }
+  else if(st===2){
+    b.innerHTML='<div class="m-step"><div class="fgrid">'+
+      fieldHTML('Full name','name',d.name,'Ama Serwaa')+
+      fieldHTML('Email address','email',d.email,'you@university.edu','email')+
+      fieldHTML('University','uni',d.uni,'University of Ghana')+
+      fieldHTML('Major / field of study','study',d.study,'e.g. Computer Science')+
+      '<label class="field" data-f="year"><span>Graduation year</span><select name="year">'+YEARS.map(function(y){return '<option'+(d.year===y?' selected':'')+'>'+y+'</option>'}).join('').replace('<option>','<option value="">')+'</select><span class="fmsg"></span></label>'+
+      '<div class="field"><span>Program</span><input value="'+esc(progTitle(d.prog))+'" disabled style="color:var(--ink2)"></div>'+
+      '</div><div class="m-actions"><button class="btn" data-act="back">Back</button><button class="btn btn-primary" data-act="next">Continue <svg class="ic"><use href="#i-arrow"/></svg></button></div></div>';
+  }
+  else if(st===3){
+    b.innerHTML='<div class="m-step">'+
+      '<label class="field" data-f="why"><span>Why this program — and why you? (30+ words)</span>'+
+      '<textarea name="why" placeholder="Tell us about a thing you made, fixed, organised or finished, and what it says about how you work.">'+esc(d.why)+'</textarea></label>'+
+      '<div class="f-note'+(words(d.why)>=30?'':' bad')+'"><span>Specific beats polished. We read every word — names last.</span><b id="wc">'+words(d.why)+' words</b></div>'+
+      '<label class="cvbox'+(d.cv?' has':'')+'" id="cvbox" style="margin-top:22px"><svg class="ic"><use href="#i-file"/></svg>'+
+      '<span class="cv-t" id="cvT">'+(d.cv?esc(d.cv.name)+' · '+(d.cv.size/1024|0)+' KB':'Upload resume (PDF) — optional but welcome')+'</span>'+
+      '<input type="file" name="cv" accept=".pdf,.doc,.docx"></label>'+
+      '<label class="chkline"><input type="checkbox" name="ok"'+(d.ok?' checked':'')+'><span>I confirm this is my own work. Super can help me draft it — but the words are mine.</span></label>'+
+      '<div class="m-actions"><button class="btn" data-act="back">Back</button><button class="btn btn-primary" data-act="next">Review <svg class="ic"><use href="#i-arrow"/></svg></button></div></div>';
+  }
+  else if(st===4){
+    var rows=[['Program',progTitle(d.prog),'1'],['Name',d.name,'2'],['Email',d.email,'2'],['University',d.uni,'2'],['Field of study',d.study,'2'],['Graduation',d.year,'2'],['Why you',words(d.why)+' words'+(d.cv?' · CV attached':''),'3'],['Confirmation',d.ok?'Confirmed':'—','3']];
+    b.innerHTML='<div class="m-step"><dl class="rev">'+
+      rows.map(function(r){return '<div class="rev-r"><dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd><button data-goto="'+r[2]+'">Edit</button></div>'}).join('')+
+      '</dl><div class="m-actions"><button class="btn" data-act="back">Back</button><button class="btn btn-primary" data-act="submit" id="subBtn">File the application <svg class="ic"><use href="#i-send"/></svg></button></div></div>';
+  }
+  else if(st===5){
+    var last=apps[0];
+    b.innerHTML='<div class="m-step success"><div class="ok"><svg class="ic" style="width:24px;height:24px"><use href="#i-check"/></svg></div>'+
+      '<span class="label">Your reference</span><div class="ref">'+esc(last.ref)+'</div>'+
+      '<p>Reviewers score it blind within 72 hours — you\u2019ll hear either way. Your file is № '+fmt(topNo)+' on today\u2019s wire, and the academy is now free for you.</p>'+
+      '<div class="m-actions"><button class="btn" data-act="desk">Open the desk</button>'+
+      '<button class="btn" data-copyref><svg class="ic"><use href="#i-copy"/></svg> Copy ref</button>'+
+      '<button class="btn" data-receipt><svg class="ic"><use href="#i-dl"/></svg> Receipt</button></div>'+
+      '<div class="m-actions" style="margin-top:8px"><a class="tlink" href="#academy" data-close-modal>Browse the academy <svg class="ic"><use href="#i-arrow"/></svg></a></div></div>';
+  }
+  updateStepState();
+}
+function setErr(name,bad,msg){
+  var f=$('#mBody').querySelector('[data-f="'+name+'"]');if(!f)return;
+  f.classList.toggle('err',!!bad);
+  var m=$('.fmsg',f);if(m)m.textContent=bad?msg:'';
+}
+function updateStepState(){
+  var btn=$('#mBody [data-act="next"]');if(!btn)return;
+  var ok=true;
+  if(M.step===1)ok=!!M.d.prog;
+  if(M.step===3)ok=words(M.d.why)>=30&&M.d.ok;
+  btn.disabled=!ok;
+}
+function nextStep(){
+  var d=M.d;
+  if(M.step===1){if(!d.prog)return;M.step=2}
+  else if(M.step===2){
+    var bad=0;
+    if(d.name.trim().length<2){setErr('name',1,'Your name, please.');bad=1}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){setErr('email',1,'That email doesn\u2019t look right.');bad=1}
+    if(!d.uni.trim()){setErr('uni',1,'Which university?');bad=1}
+    if(!d.study.trim()){setErr('study',1,'And your field of study?');bad=1}
+    if(!d.year){setErr('year',1,'Pick your graduation year.');bad=1}
+    if(bad)return;
+    M.step=3;
+  }
+  else if(M.step===3){
+    if(words(d.why)<30){setErr('why',1,'Aim for 30+ words — specifics help.');return}
+    if(!d.ok)return;
+    M.step=4;
+  }
+  renderModal();
+}
+function submitApp(){
+  var btn=$('#subBtn');btn.disabled=true;
+  btn.innerHTML='<span class="spin"></span> Filing —';
+  setTimeout(function(){
+    var d=M.d,p=PROGRAMMES.filter(function(x){return x.id===d.prog})[0];
+    addEntry(true);
+    var ref='FIN-26-0'+String(topNo).padStart(4,'0');
+    apps.unshift({ref:ref,prog:d.prog,title:p.title,co:p.co,name:d.name.trim(),email:d.email,uni:d.uni,study:d.study,year:d.year,words:words(d.why),cv:d.cv?d.cv.name:'',ts:Date.now()});
+    store.set(ukey('apps'),apps);
+    M.step=5;renderModal();renderApps();
+    if(CT==='profile')renderProfile();
+    toast('Application filed — '+ref);
+  },900);
+}
+
+/* ================= drawer ================= */
+function updateDeskBadge(){
+  var b=$('#deskCount');
+  b.textContent=apps.length;b.hidden=apps.length===0;b.classList.toggle('on',apps.length>0);
+  var tb=$('#tabCount');
+  if(tb){tb.textContent=apps.length;tb.hidden=apps.length===0}
+}
+function renderDesk(){
+  var el=$('#dBody'),h='';
+  if(!apps.length){
+    h+='<div class="d-empty"><b>Nothing of yours yet.</b>Sample desks live under the Apply tab — file an application and it joins them here, with references, status and a clean withdraw.</div>';
+  }else{
+    h+=apps.map(function(a){
+      var dt=new Date(a.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+      return '<div class="d-item"><div class="d-ref">'+esc(a.ref)+'</div><h4>'+esc(a.title)+'</h4>'+
+      '<div class="d-meta">Filed '+dt+' · '+esc(a.name)+(a.cv?' · CV attached':'')+'</div>'+
+      '<div class="d-row"><span class="badge bd-received">Received</span><button class="wd" data-wd="'+esc(a.ref)+'">Withdraw</button></div></div>';
+    }).join('');
+  }
+  h+='<div class="d-sec"><h4>Super\u2019s drafts</h4>';
+  if(DRAFT.cover||DRAFT.cv){
+    h+='<div class="d-item" style="border:0;padding:12px 0">';
+    if(DRAFT.cover)h+='<div class="d-row" style="margin-top:0"><span class="d-meta">Cover letter — '+esc(DRAFT.cover.data.program||'')+'</span><button class="tlink" style="font-size:10px" data-super-ask="Show me my cover letter again">Open in Super</button></div>';
+    if(DRAFT.cv)h+='<div class="d-row" style="margin-top:12px"><span class="d-meta">CV — '+esc(DRAFT.cv.name)+'</span><button class="tlink" style="font-size:10px" data-super-ask="Show me my CV again">Open in Super</button></div>';
+    h+='</div>';
+  }else{
+    h+='<p class="d-meta" style="padding:12px 0">Nothing yet. Ask Super to write a cover letter or build your CV — drafts land here and pre-fill your application.</p>';
+  }
+  h+='</div>';
+  el.innerHTML=h;
+}
+function openDrawer(){closeAll();renderDesk();showLayer('#drawer',true);$('#drawer .ibtn').focus()}
+function closeDrawer(){showLayer('#drawer',false);closeAll()}
+
+/* ================= contact form — real delivery ================= */
+var cForm=$('#contactForm'),cStatus=$('#cStatus'),cSend=$('#cSend');
+var lastMsgTxt='';
+function setStatus(kind,html){
+  cStatus.className='fstatus show '+kind;
+  cStatus.innerHTML=html;
+}
+function setCErr(n,bad,msg){
+  var el=cForm.querySelector('[data-f="'+n+'"]');
+  el.classList.toggle('err',bad);
+  if(bad){$('.fmsg',el).textContent=msg}
+  return !bad;
+}
+cForm.addEventListener('input',function(){
+  store.set(ukey('cform'),{n:cForm.cname.value,e:cForm.cemail.value,s:cForm.csubj.value,m:cForm.cmsg.value});
+});
+cForm.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!AUTH.user)return;
+  if(cForm.querySelector('[name="bot-field"]').value)return;
+  var ok=true;
+  ok=setCErr('cname',cForm.cname.value.trim().length<2,'Your name, please.')&&ok;
+  ok=setCErr('cemail',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cForm.cemail.value),'That email doesn\u2019t look right.')&&ok;
+  ok=setCErr('csubj',cForm.csubj.value.trim().length<3,'A short subject helps.')&&ok;
+  ok=setCErr('cmsg',words(cForm.cmsg.value)<3,'Tell us a little more.')&&ok;
+  if(!ok)return;
+  var name=cForm.cname.value.trim(),email=cForm.cemail.value.trim(),
+      subj=cForm.csubj.value.trim(),msg=cForm.cmsg.value.trim();
+  lastMsgTxt='Name: '+name+'\nEmail: '+email+'\n\n'+msg;
+  cSend.disabled=true;
+  cSend.innerHTML='<span class="spin dark"></span> Sending —';
+
+  function done(okKind,html){setStatus(okKind,html);cSend.disabled=false;
+    cSend.innerHTML='Send message <svg class="ic"><use href="#i-send"/></svg>'}
+  function mailtoFallback(note){
+    var url='mailto:fortuneintern.gh@gmail.com?subject='+encodeURIComponent('[FIN website] '+subj)+'&body='+encodeURIComponent(lastMsgTxt);
+    window.location.href=url;
+    done('info',(note||'')+'<span>Your mail app should have opened with everything filled in — just press send there. If it didn\u2019t:</span><button type="button" class="tlink" data-copymsg>Copy the message instead</button>');
+  }
+  function succeed(via){
+    store.del(ukey('cform'));cForm.reset();
+    done('ok','<span><strong>Sent — thank you, '+esc(name.split(' ')[0])+'.</strong> '+via+' The desk in Accra replies within 72 hours.</span>');
+    toast('Message sent to the FIN desk','send');
+  }
+
+  if(CONTACT_ENDPOINT&&CONTACT_ENDPOINT!=='netlify'){
+    fetch(CONTACT_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({name:name,email:email,subject:subj,message:msg,account:AUTH.user.email})})
+    .then(function(r){if(r.ok)succeed('Delivered via Formspree.');else throw 0})
+    .catch(function(){mailtoFallback('<strong>Formspree didn\u2019t respond.</strong>')});
+  }
+  else if(CONTACT_ENDPOINT==='netlify'||/\.netlify\.app$/i.test(location.hostname)){
+    var body=new URLSearchParams({'form-name':'fin-contact',name:name,email:email,subject:subj,message:msg,account:AUTH.user.email}).toString();
+    fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body})
+    .then(function(r){if(r.ok)succeed('Delivered via Netlify Forms — check the Forms tab in your dashboard.');else throw 0})
+    .catch(function(){mailtoFallback('<strong>Netlify Forms didn\u2019t respond.</strong>')});
+  }
+  else{
+    mailtoFallback('');
+  }
+});
+
+/* ================= SUPER ================= */
+var S={panelOpen:false,seen:false,busy:false,flow:null,lastLetter:null,lastTone:'standard'};
+var spBody=$('#spBody'),spChips=$('#spChips'),spInput=$('#spInput'),superFab=$('#superFab');
+
+function spScroll(){spBody.scrollTop=spBody.scrollHeight}
+function msgNode(who,html,card){
+  var d=document.createElement('div');d.className='msg '+who;
+  var inner='<div class="bub">'+html+'</div><span class="tm">'+nowTime()+(who==='b'?' · Super':'')+'</span>';
+  if(card)inner+=card;
+  d.innerHTML=inner;return d;
+}
+function userSay(text){spBody.appendChild(msgNode('u',esc(text)));spScroll()}
+function botSay(html,card,instant){
+  function put(){spBody.appendChild(msgNode('b',html,card));spScroll();S.busy=false}
+  if(instant||RM){put();return}
+  S.busy=true;
+  var t=document.createElement('div');t.className='msg b typing';t.innerHTML='<div class="bub"><i></i><i></i><i></i></div>';
+  spBody.appendChild(t);spScroll();
+  setTimeout(function(){t.remove();put()},Math.min(1600,Math.max(550,html.length*3)));
+}
+function setChips(arr){
+  spChips.innerHTML=(arr||[]).map(function(c){return '<button class="sp-chip" data-chip="'+esc(c)+'">'+esc(c)+'</button>'}).join('');
+}
+function contactCard(){
+  return '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-phone"/></svg>Contact the desk — Accra</div><div class="cc-body">'+
+    '<a class="cmini" href="tel:+233257038948"><svg class="ic"><use href="#i-phone"/></svg>Hotline · +233 25 703 8948<span>Call</span></a>'+
+    '<a class="cmini" href="https://wa.me/233257038948" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp · +233 25 703 8948<span>Chat</span></a>'+
+    '<a class="cmini" href="https://whatsapp.com/channel/0029Val97zy1yT2BGkOZi511" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wave"/></svg>WhatsApp Channel<span>Follow</span></a>'+
+    '<a class="cmini" href="mailto:fortuneintern.gh@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>fortuneintern.gh@gmail.com<span>Email</span></a>'+
+    '<a class="cmini" href="https://www.linkedin.com/company/fortune-intern-network/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg>LinkedIn · Fortune Intern Network<span>Visit</span></a>'+
+    '<a class="cmini" href="https://maps.google.com/?q=Accra,Ghana" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg>Accra, Ghana<span>Map</span></a>'+
+    '</div></div>';
+}
+function navCard(){
+  return '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-spark"/></svg>Take me there</div><div class="cc-act">'+
+    '<button class="cbtn" data-sg="#pane-overview">Overview</button>'+
+    '<button class="cbtn" data-sg="#pane-announcements">News</button>'+
+    '<button class="cbtn" data-sg="#programs">Programs</button>'+
+    '<button class="cbtn" data-sg="#pane-apply">Apply</button>'+
+    '<button class="cbtn" data-sg="#pane-profile">Profile</button>'+
+    '<button class="cbtn gold" data-apply>Apply now</button>'+
+    '</div></div>';
+}
+
+/* ---- letter & CV composers ---- */
+function composeLetter(d,tone){
+  var g=d.name.trim();
+  if(tone==='concise'){
+    return 'Dear Selection Team at Fortune Intern Network,\n\nMy name is '+g+', and I am applying for the '+d.program+'. I bring '+d.strengths.trim()+' — proven by '+d.achievement.trim()+'. I learn fast, I finish what I start, and I intend to give a partner company real value from week one.\n\nI would welcome the chance to prove it.\n\nSincerely,\n'+g;
+  }
+  return 'Dear Selection Team at Fortune Intern Network,\n\nMy name is '+g+', and I am applying for the '+d.program+'. For me, FIN\u2019s promise of \u201cbridging dreams and careers\u201d is not a slogan — it is the exact crossing I am standing at.\n\nI bring '+d.strengths.trim()+'. The work I am proudest of so far: '+d.achievement.trim()+'. It taught me that I am at my best when the problem is real and the deadline is not pretend.\n\nI am ready to work, to learn quickly, and to give a partner company genuine value from week one. I would welcome the chance to prove it.\n\nSincerely,\n'+g+'\nFortune Intern Network applicant';
+}
+function letterCard(letter,d){
+  return '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-file"/></svg>Your cover letter · '+d.program+'</div>'+
+    '<div class="cc-body"><div class="letterprev">'+esc(letter)+'</div></div>'+
+    '<div class="cc-act">'+
+    '<button class="cbtn" data-lcopy><svg class="ic"><use href="#i-copy"/></svg>Copy</button>'+
+    '<button class="cbtn" data-ldl><svg class="ic"><use href="#i-dl"/></svg>Download</button>'+
+    '<button class="cbtn" data-lshort>'+(S.lastTone==='standard'?'Shorter version':'Fuller version')+'</button>'+
+    '<button class="cbtn gold" data-luse>Use in my application</button>'+
+    '</div></div>';
+}
+function cvText(cv){
+  var L=[];
+  L.push(cv.name.toUpperCase());
+  L.push([cv.email,cv.phone,'Accra, Ghana'].filter(Boolean).join(' · '));
+  L.push('');L.push('EDUCATION');
+  L.push(cv.uni+' — '+cv.study+(cv.year?', Class of '+cv.year:''));
+  L.push('');L.push('SKILLS');L.push(cv.skills);
+  if(cv.exp&&cv.exp.length){L.push('');L.push('EXPERIENCE & PROJECTS');cv.exp.forEach(function(e){L.push('• '+e)})}
+  L.push('');L.push('Prepared with Super · Fortune Intern Network — Bridging Dreams and Careers');
+  return L.join('\n');
+}
+function cvCard(cv){
+  var exp=(cv.exp||[]).map(function(e){return '<li>'+esc(e)+'</li>'}).join('');
+  return '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-file"/></svg>Your CV · preview</div>'+
+    '<div class="cc-body"><div class="cvprev">'+
+    '<h5>'+esc(cv.name)+'</h5>'+
+    '<div class="l1">'+esc([cv.email,cv.phone].filter(Boolean).join(' · '))+' · Accra, Ghana</div>'+
+    '<h6>Education</h6><p>'+esc(cv.uni)+' — '+esc(cv.study)+(cv.year?', Class of '+esc(cv.year):'')+'</p>'+
+    '<h6>Skills</h6><p>'+esc(cv.skills)+'</p>'+
+    (exp?'<h6>Experience & projects</h6><ul>'+exp+'</ul>':'')+
+    '</div></div>'+
+    '<div class="cc-act">'+
+    '<button class="cbtn" data-cvcopy><svg class="ic"><use href="#i-copy"/></svg>Copy text</button>'+
+    '<button class="cbtn" data-cvdl><svg class="ic"><use href="#i-dl"/></svg>Download</button>'+
+    '<button class="cbtn gold" data-cvuse>Use in my application</button>'+
+    '</div></div>';
+}
+function cvHtmlFile(cv){
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>CV — '+esc(cv.name)+'</title></head><body style="font-family:\'Inter\',\'Segoe UI\',Arial,sans-serif;color:#0B1C36;background:#F7F4EB;margin:0;padding:48px">'+
+  '<div style="max-width:720px;margin:0 auto;background:#fff;border:2px solid #0B1C36;padding:48px;box-shadow:10px 10px 0 #FFC72C">'+
+  '<h1 style="font-size:34px;margin:0">'+esc(cv.name)+'</h1>'+
+  '<p style="color:#54607A;border-bottom:4px solid #FFC72C;padding-bottom:12px;margin:8px 0 24px">'+esc([cv.email,cv.phone,'Accra, Ghana'].filter(Boolean).join(' · '))+'</p>'+
+  '<h2 style="font:700 12px Arial;letter-spacing:2px;color:#D99E00;margin:20px 0 6px">EDUCATION</h2><p style="margin:0">'+esc(cv.uni)+' — '+esc(cv.study)+(cv.year?', Class of '+esc(cv.year):'')+'</p>'+
+  '<h2 style="font:700 12px Arial;letter-spacing:2px;color:#D99E00;margin:20px 0 6px">SKILLS</h2><p style="margin:0">'+esc(cv.skills)+'</p>'+
+  (cv.exp&&cv.exp.length?'<h2 style="font:700 12px Arial;letter-spacing:2px;color:#D99E00;margin:20px 0 6px">EXPERIENCE & PROJECTS</h2><ul style="margin:0;padding-left:18px">'+cv.exp.map(function(e){return '<li style="margin:6px 0">'+esc(e)+'</li>'}).join('')+'</ul>':'')+
+  '<p style="font-size:12px;color:#54607A;margin-top:32px;border-top:1px solid #ddd;padding-top:12px">Prepared with Super · Fortune Intern Network — Bridging Dreams and Careers</p>'+
+  '</div></body></html>';
+}
+
+/* ---- flows ---- */
+function startFlow(type){
+  if(type==='cover'){
+    S.flow={type:'cover',step:0,data:{}};
+    botSay('<p><strong>Let\u2019s write your cover letter.</strong> Four quick answers and I\u2019ll draft it properly — you can shorten or polish after.</p><p>First: confirm your <strong>full name</strong> — or type the exact one you want on the letter.</p>');
+    setChips([AUTH.user.name]);
+  }else{
+    S.flow={type:'cv',step:0,data:{},yearChips:['2025','2026','2027','2028','2029'],skillChips:['Python','Excel & data','Public speaking','Figma','Project management','Writing']};
+    botSay('<p><strong>Let\u2019s build your CV.</strong> Eight quick answers — I\u2019ll assemble a clean, honest one and it can pre-fill your FIN application.</p><p>First: confirm your <strong>full name</strong> — or type the exact one for the CV.</p>');
+    setChips([AUTH.user.name]);
+  }
+}
+function flowHandle(text){
+  var f=S.flow,t=text.trim(),d=f.data;
+  if(/^(cancel|stop|quit|nevermind|never mind)$/i.test(t)){S.flow=null;botSay('<p>No problem — we\u2019re out of the builder. Anything else I can do?</p>');setChips(DEFAULT_CHIPS);return}
+  if(f.type==='cover'){
+    if(f.step===0){if(t.length<2){botSay('<p>Just your name — even first and last is fine.</p>');return}d.name=t;f.step=1;
+      botSay('<p>Lovely, '+esc(d.name.split(' ')[0])+'. Which <strong>program</strong> is the letter for?</p>');setChips(PROGRAMMES.map(function(p){return p.title}));return}
+    if(f.step===1){var p=PROGRAMMES.filter(function(x){return x.title.toLowerCase()===t.toLowerCase()})[0];
+      if(!p){botSay('<p>Pick one of the four below — tap a chip and I\u2019ll take it from there.</p>');setChips(PROGRAMMES.map(function(x){return x.title}));return}
+      d.program=p.title;f.step=2;botSay('<p>Good choice. Now — name <strong>two or three strengths</strong> of yours (e.g. \u201cPython, teamwork and stubborn curiosity\u201d).</p>');setChips([]);return}
+    if(f.step===2){if(words(t)<1){botSay('<p>Even one honest strength will do.</p>');return}d.strengths=t;f.step=3;
+      botSay('<p>Last one: <strong>one achievement you\u2019re proud of</strong> — a project, a class, a thing you organised. One or two sentences.</p>');setChips(['I led my hall\u2019s tech week','I built a market-day sales tracker','I tutored 20 students in maths']);return}
+    if(f.step===3){if(words(t)<3){botSay('<p>A little more detail, please — what was it, and what did you do?</p>');return}
+      d.achievement=t;S.flow=null;S.lastTone='standard';
+      var letter=composeLetter(d,'standard');S.lastLetter=letter;
+      DRAFT.cover={data:d,letter:letter};saveDraft();
+      if(CT==='profile')renderProfile();
+      botSay('<p><strong>Done.</strong> Here\u2019s your draft — copy it, download it, ask me for a shorter cut, or send it straight into your application form.</p>',letterCard(letter,d));
+      setChips(['Build my CV too','How to apply']);
+    }
+  }
+  else{
+    var steps=['name','email','phone','uni','study','year','skills','exp'];
+    var k=steps[f.step];
+    if(k==='name'){if(t.length<2){botSay('<p>Your name, please — first and last.</p>');return}d.name=t}
+    if(k==='email'){if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)){botSay('<p>That email looks off — try again like you@university.edu</p>');return}d.email=t}
+    if(k==='phone'){if(t.replace(/\D/g,'').length<9){botSay('<p>A phone number I can actually dial — with country code if you like.</p>');return}d.phone=t}
+    if(k==='uni'){if(words(t)<1){botSay('<p>Which university (or \u201cself-taught\u201d — that counts here)?</p>');return}d.uni=t}
+    if(k==='study'){if(words(t)<1){botSay('<p>Your major or field — or the closest thing to it.</p>');return}d.study=t}
+    if(k==='year'){if(!/20\d\d/.test(t)){botSay('<p>A year, please — tap a chip below.</p>');return}d.year=t.match(/20\d\d/)[0]}
+    if(k==='skills'){if(words(t)<1){botSay('<p>Even two skills will do — tap chips to combine.</p>');return}d.skills=t}
+    if(k==='exp'){
+      d.exp=[];
+      if(!/^(skip|none|no)$/i.test(t))d.exp=t.split(/\n|;/).map(function(s){return s.trim()}).filter(Boolean).slice(0,4);
+      S.flow=null;DRAFT.cv=d;saveDraft();
+      if(CT==='profile')renderProfile();
+      botSay('<p><strong>Your CV is ready.</strong> Preview below — copy it as text, download a print-ready file, or push it straight into your FIN application (I\u2019ll fill the form for you).</p>',cvCard(d));
+      setChips(['Now write my cover letter','Show me programs']);
+      return;
+    }
+    f.step++;
+    var ask={
+      email:'Great. Your <strong>email address</strong>?',
+      phone:'And a <strong>phone number</strong> (WhatsApp number works)?',
+      uni:'Which <strong>university</strong> — or \u201cself-taught\u201d, which counts here?',
+      study:'Your <strong>major / field of study</strong>?',
+      year:'<strong>Graduation year</strong>?',
+      skills:'Your <strong>skills</strong> — a few words or comma-separated.',
+      exp:'Finally: up to three lines of <strong>experience or projects</strong>, one per line — or type \u201cskip\u201d.'
+    }[steps[f.step]];
+    botSay('<p>'+ask+'</p>');
+    setChips(k==='year'?f.yearChips:(steps[f.step]==='skills'?f.skillChips:[]));
+  }
+}
+
+/* ---- intents ---- */
+var DEFAULT_CHIPS=['Available programs','How to apply','Is it paid?','Help me write a cover letter','Build my CV','Contact us'];
+function respond(raw){
+  var m=raw.toLowerCase();
+  if(/show me my cover letter again/.test(m)&&DRAFT.cover){S.lastTone='standard';S.lastLetter=DRAFT.cover.letter;botSay('<p>Here it is — still saved to your account.</p>',letterCard(DRAFT.cover.letter,DRAFT.cover.data));setChips(DEFAULT_CHIPS);return}
+  if(/show me my cv again/.test(m)&&DRAFT.cv){botSay('<p>Your CV, right where we left it.</p>',cvCard(DRAFT.cv));setChips(DEFAULT_CHIPS);return}
+  if(/cover letter|coverletter|motivation letter/.test(m)){startFlow('cover');return}
+  if(/\bcv\b|resume|résumé/.test(m)){startFlow('cv');return}
+  if(/sign ?out|log ?out|logout/.test(m)){
+    botSay('<p>You can sign out from your <strong>avatar — top right of the header</strong> — or from the Profile tab. Everything you\u2019ve done stays saved to your account for next time.</p>');
+    setChips(DEFAULT_CHIPS);return;
+  }
+  if(/my account|who am i|account details|my details/.test(m)){
+    botSay('<p>You\u2019re signed in as <strong>'+esc(AUTH.user.name)+'</strong> ('+esc(AUTH.user.email)+'). Your full snapshot — applications, academy, certificates, drafts — lives on the Profile tab.</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-user"/></svg>Account</div><div class="cc-act"><button class="cbtn gold" data-sg="#pane-profile">Open my profile</button></div></div>');
+    setChips(DEFAULT_CHIPS);return;
+  }
+  if(/reject|declined|didn'?t get|didnt get|improve/.test(m)){
+    botSay('<p>First — that sting is real, and it isn\u2019t the end of your file with us.</p><p><strong>What actually helps:</strong></p><ul><li><strong>Finish the relevant academy course</strong> — reviewers see the certificate</li><li><strong>Make the achievement specific</strong> — numbers, outcomes, what you built</li><li><strong>Reapply next intake</strong> — past applicants who finished a course convert at over double the rate</li></ul><p>Want me to rewrite your cover letter with a sharper achievement, or plan the academy route?</p>');
+    setChips(['Help me write a cover letter','Build my CV','Take me to the academy']);return;
+  }
+  if(/paid|salary|stipend|cost|fee|money|earn|ghc|cedis/.test(m)){
+    botSay('<p><strong>Every program is paid — no exceptions, ever.</strong></p><ul>'+PROGRAMMES.map(function(p){return '<li><strong>'+p.title+'</strong> — '+p.pay+'</li>'}).join('')+'</ul><p>Even the work-sample stage is paid. Unpaid internships filter for family money, not talent — we refuse to run one.</p>');
+    setChips(['Available programs','How to apply']);return;
+  }
+  if(/how long|duration|months|weeks|length of/.test(m)){
+    botSay('<p><strong>How long each door takes:</strong></p><ul>'+PROGRAMMES.map(function(p){return '<li><strong>'+p.title+'</strong> — '+p.tag+'</li>'}).join('')+'</ul><p>From form to first day is about four weeks — and you hear from us at every stage.</p>');
+    setChips(['Available programs','Is it paid?']);return;
+  }
+  if(/program|internship|opportunit|opening|what.*available|roles|vacanc/.test(m)){
+    botSay('<p><strong>Four doors are open right now</strong> — all paid:</p><ul>'+PROGRAMMES.map(function(p){return '<li><strong>'+p.title+'</strong> · '+p.co+' — '+p.tag+', '+p.pay+'</li>'}).join('')+'</ul><p>Tap one to jump straight into its details, or apply in one form.</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-bld"/></svg>Featured programs</div><div class="cc-act">'+
+      PROGRAMMES.map(function(p){return '<button class="cbtn" data-sg="#prow-'+p.id+'">'+p.title+'</button>'}).join('')+
+      '<button class="cbtn gold" data-apply>Apply now</button></div></div>');
+    setChips(['How to apply','What are the deadlines?']);return;
+  }
+  if(/how (do|to|can) i apply|apply|application form|submit|sign up|register for a program/.test(m)){
+    botSay('<p><strong>Applying takes about ten minutes:</strong></p><ul><li>One form — name, university, field, graduation year</li><li>A short \u201cwhy you\u201d of 30+ words</li><li>Resume PDF optional</li></ul><p>Reviewers score it blind within <strong>72 hours</strong>, and you track every stage on your applications desk. Want me to build your CV first so the form fills itself?</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-arrow"/></svg>Do it now</div><div class="cc-act"><button class="cbtn gold" data-apply>Open the form</button><button class="cbtn" data-sg="#process">See all 5 stages</button></div></div>');
+    setChips(['Build my CV','Available programs']);return;
+  }
+  if(/deadline|when.*close|closing date|last day/.test(m)){
+    botSay('<p><strong>Closing dates, plainly:</strong></p><ul>'+PROGRAMMES.map(function(p){return '<li><strong>'+p.title+'</strong> — '+p.close+'</li>'}).join('')+'</ul><p>And the WhatsApp channel always announces new intakes first.</p>');setChips(['Contact us','Available programs']);return;
+  }
+  if(/send.*(message|email)|message form|contact form|write to you|email you/.test(m)){
+    botSay('<p>The <strong>contact form</strong> lives on your Profile tab — it reaches the desk in Accra directly, and a person replies within 72 hours. Want me to take you there, or would you rather have the direct channels?</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-mail"/></svg>Reach the desk</div><div class="cc-act"><button class="cbtn gold" data-sg="#contact">Open the contact form</button><button class="cbtn" data-super-ask="Contact us">Direct channels</button></div></div>');
+    setChips(DEFAULT_CHIPS);return;
+  }
+  if(/contact|phone|call|whatsapp|hotline|linkedin|reach|location|where are you|address/.test(m)){
+    botSay('<p>Every channel below is live — the hotline and WhatsApp reach a <strong>human in Accra</strong>, Mon–Fri 9:00–17:00 GMT:</p>',contactCard());
+    setChips(['About FIN','Available programs']);return;
+  }
+  if(/about|who are you|what is fin|fortune|company|motto|what do you do/.test(m)){
+    botSay('<p><strong>Fortune Intern Network does one thing:</strong> we take students and graduates and bridge them into paid internships, traineeships and the training that earns them. \u201cBridging Dreams and Careers\u201d isn\u2019t a slogan — it\u2019s the entire business.</p><ul><li>Est. 2018, Accra</li><li>1,400+ careers launched</li><li>63 partner companies</li><li>Every program paid — no exceptions</li></ul>');
+    setChips(['Available programs','How to apply','Contact us']);return;
+  }
+  if(/academy|course|learn|training|certificate|module|study/.test(m)){
+    botSay('<p>The <strong>FIN Academy</strong> is free for every applicant: five courses, ~10-minute modules, real certificates, and a skill radar partner companies actually see. Finish one and your certificate is issued instantly.</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-spark"/></svg>Go</div><div class="cc-act"><button class="cbtn gold" data-sg="#academy">Open the academy</button></div></div>');
+    setChips(['Available programs','How to apply']);return;
+  }
+  if(/event|webinar|summit|conference|meetup|news|announce/.test(m)){
+    botSay('<p><strong>Coming up:</strong></p><ul><li><strong>Business Conference Webinar 2026</strong> — Jan 14, 8:00 PM WIB, free Q&A with founders</li><li><strong>Tech Summit 2026</strong> — Mar 20, Accra, with a hiring floor</li></ul>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-cal"/></svg>Announcements</div><div class="cc-act"><button class="cbtn gold" data-sg="#pane-announcements">Open Announcements</button></div></div>');
+    setChips(['Available programs','Contact us']);return;
+  }
+  if(/track|status|my application|where.*application|dashboard|desk/.test(m)){
+    botSay('<p>Your applications live on the open desk — four visible stages: <strong>Applied → Review → Interview → Offer</strong>, with honest notes at each one.</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-arrow"/></svg>Desk</div><div class="cc-act"><button class="cbtn gold" data-sg="#applications">View my applications</button><button class="cbtn" data-desk>Open the drawer</button></div></div>');
+    setChips(['How to apply','Available programs']);return;
+  }
+  if(/profile|settings|notification|my (info|details)/.test(m)){
+    botSay('<p>Your <strong>Profile tab</strong> is your honest snapshot at FIN — your account, applications, academy progress, certificates, my drafts, and your notification settings. One tap away:</p>',
+      '<div class="chatcard"><div class="cc-head"><svg class="ic"><use href="#i-user"/></svg>Profile</div><div class="cc-act"><button class="cbtn gold" data-sg="#pane-profile">Open my profile</button></div></div>');
+    setChips(DEFAULT_CHIPS);return;
+  }
+  if(/super|who made you|are you (a )?bot|are you (an )?ai|robot/.test(m)){
+    botSay('<p>I\u2019m <strong>Super</strong> — FIN\u2019s AI assistant. I run entirely on this page: I guide, I fetch contacts, I draft cover letters and CVs, and I never pretend to be a human. The humans are on the hotline.</p>');setChips(DEFAULT_CHIPS);return;
+  }
+  if(/\b(hi|hello|hey|good (morning|afternoon|evening)|akwaaba|hiya)\b/.test(m)){
+    botSay('<p>Akwaaba! I\u2019m <strong>Super</strong> — your guide around Fortune Intern Network. I can show you programs, walk you through applying, hand you our contacts, or <strong>write your cover letter and CV with you</strong>. Where shall we start?</p>');setChips(DEFAULT_CHIPS);return;
+  }
+  if(/thank|thanks|appreciate|great|awesome|nice/.test(m)){
+    botSay('<p>Anytime — that\u2019s what I\u2019m here for. Go get that bridge crossed.</p>');setChips(DEFAULT_CHIPS);return;
+  }
+  if(/lost|help|where|navigate|how does this site|confus|guide/.test(m)){
+    botSay('<p>Not lost anymore. The site is five tabs — everything one tap away:</p>',navCard());
+    setChips(DEFAULT_CHIPS);return;
+  }
+  botSay('<p>I\u2019m quickest with these — or tap any button below to jump straight there:</p><ul><li><strong>Programs, pay & deadlines</strong></li><li><strong>How to apply</strong></li><li><strong>Cover letter & CV building</strong></li><li><strong>Contacts — hotline, WhatsApp, email, LinkedIn</strong></li></ul>',navCard());
+  setChips(DEFAULT_CHIPS);
+}
+function superSend(text){
+  if(S.busy||!text.trim())return;
+  userSay(text);spInput.value='';setChips([]);
+  if(S.flow)flowHandle(text);
+  else setTimeout(function(){respond(text)},60);
+}
+function superOpen(silent){
+  if(S.panelOpen||!AUTH.user)return;
+  S.panelOpen=true;superFab.classList.remove('nudge');
+  $('#superPanel').classList.add('show');
+  if(!S.seen){
+    S.seen=true;store.set(ukey('seen'),true);
+    var fn=AUTH.user.name.split(' ')[0];
+    botSay('<p><strong>Akwaaba, '+esc(fn)+'! I\u2019m Super</strong> — the FIN AI assistant. I can help you find a program, walk you through applying, share our contacts, or <strong>write your cover letter and build your CV</strong> with you, step by step. Ask me anything.</p>',null,true);
+    setChips(DEFAULT_CHIPS);
+  }
+  if(silent!==true)setTimeout(function(){spInput.focus()},120);
+}
+function superClose(skipFocus){
+  S.panelOpen=false;$('#superPanel').classList.remove('show');
+  if(skipFocus!==true)superFab.focus();
+}
+setTimeout(function(){if(!S.seen&&AUTH.user)superFab.classList.add('nudge')},26000);
+
+/* ================= global wiring ================= */
+document.addEventListener('click',function(e){
+  var t=e.target,el;
+
+  /* ---- gate ---- */
+  if((el=t.closest('[data-gt]'))){e.preventDefault();gateView(el.getAttribute('data-gt'));return}
+  if((el=t.closest('[data-pw]'))){
+    var inp=el.parentElement.querySelector('input');
+    var show=inp.type==='password';
+    inp.type=show?'text':'password';
+    el.innerHTML='<svg class="ic"><use href="#i-'+(show?'eyeoff':'eye')+'"/></svg>';
+    el.setAttribute('aria-label',show?'Hide password':'Show password');
+    return;
+  }
+  if(t.closest('#gtForgotBtn')){e.preventDefault();
+    $$('.gt-tab').forEach(function(b){b.classList.remove('on')});
+    $('#gtIn').classList.add('hide');$('#gtUp').classList.add('hide');$('#gtForgotV').classList.remove('hide');
+    return;
+  }
+  if(t.closest('[data-out]')){logout();return}
+
+  /* ---- account popover ---- */
+  var acct=$('#acctBtn');
+  if(acct){
+    if(t.closest('#acctBtn')&&!t.closest('.acct-pop')){
+      e.preventDefault();
+      var open=!acct.classList.contains('open');
+      acct.classList.toggle('open',open);
+      acct.setAttribute('aria-expanded',String(open));
+      return;
+    }
+    if(acct.classList.contains('open'))acct.classList.remove('open');
+  }
+
+  /* ---- tabs ---- */
+  if((el=t.closest('[data-tab]'))){
+    e.preventDefault();
+    if(el.closest('#mobileMenu'))setMenu(false);
+    showTab(el.getAttribute('data-tab'));
+    return;
+  }
+  /* ---- super ---- */
+  if((el=t.closest('[data-super-open]'))){e.preventDefault();superOpen();return}
+  if(t.closest('#spClose')){superClose();return}
+  if((el=t.closest('[data-chip]'))){superSend(el.getAttribute('data-chip'));return}
+  if((el=t.closest('[data-sg]'))){goTo(el.getAttribute('data-sg'));return}
+  if((el=t.closest('[data-super-ask]'))){e.preventDefault();superOpen(true);superSend(el.getAttribute('data-super-ask'));return}
+  if(t.closest('[data-desk]')){superClose(true);openDrawer();return}
+  if(t.closest('[data-lcopy]')){copyText(S.lastLetter,'Letter copied — paste it anywhere');return}
+  if(t.closest('[data-ldl]')){downloadFile('FIN-Cover-Letter.txt',S.lastLetter);toast('Letter downloaded','dl');return}
+  if(t.closest('[data-lshort]')&&DRAFT.cover){
+    S.lastTone=S.lastTone==='standard'?'concise':'standard';
+    S.lastLetter=composeLetter(DRAFT.cover.data,S.lastTone);
+    DRAFT.cover.letter=S.lastLetter;saveDraft();
+    botSay('<p>Here\u2019s the '+(S.lastTone==='concise'?'tight version — under 120 words':'fuller version again')+'.</p>',letterCard(S.lastLetter,DRAFT.cover.data));return;
+  }
+  if(t.closest('[data-luse]')){toast('Application pre-filled with your draft');openModal();return}
+  if(t.closest('[data-cvcopy]')&&DRAFT.cv){copyText(cvText(DRAFT.cv),'CV copied as text');return}
+  if(t.closest('[data-cvdl]')&&DRAFT.cv){downloadFile('CV-'+DRAFT.cv.name.replace(/\s+/g,'-')+'.html',cvHtmlFile(DRAFT.cv),'text/html');toast('CV downloaded — print-ready','dl');return}
+  if(t.closest('[data-cvuse]')){toast('Application pre-filled from your CV');openModal();return}
+  if(t.closest('[data-copymsg]')){copyText(lastMsgTxt,'Message copied — paste it into an email to fortuneintern.gh@gmail.com');return}
+  if(t.closest('[data-copyref]')&&apps[0]){copyText(apps[0].ref,'Reference '+apps[0].ref+' copied');return}
+  if(t.closest('[data-receipt]')&&apps[0]){downloadFile('FIN-Receipt-'+apps[0].ref+'.txt',receiptText());toast('Receipt downloaded','dl');return}
+
+  /* ---- site-wide ---- */
+  if((el=t.closest('[data-apply]'))){e.preventDefault();openModal(el.getAttribute('data-apply')||undefined);return}
+  if(t.closest('#deskBtn')){openDrawer();return}
+  if(t.closest('[data-close-drawer]')){closeDrawer();return}
+  if(t.closest('[data-close-modal]')){closeModal();return}
+  if(t.closest('[data-close-cert]')){showLayer('#certM',false);closeAll();return}
+  if(t.closest('#certDl')){
+    var a=document.createElement('a');
+    var c=COURSES.filter(function(x){return x.id===certCtx.cid})[0];
+    a.download='FIN-Certificate-'+c.no+'-'+certCtx.ref+'.png';
+    a.href=$('#certCanvas').toDataURL('image/png');a.click();
+    toast('Certificate downloaded');return;
+  }
+  if(t.closest('#scrim')){closeAll();return}
+  if((el=t.closest('[data-act]'))){
+    var act=el.getAttribute('data-act');
+    if(act==='next')nextStep();
+    else if(act==='back'){M.step=Math.max(1,M.step-1);renderModal()}
+    else if(act==='submit')submitApp();
+    else if(act==='desk'){closeModal();openDrawer()}
+    return;
+  }
+  if((el=t.closest('[data-goto]'))){M.step=+el.getAttribute('data-goto');renderModal();return}
+  if((el=t.closest('.prow-head'))){
+    var row=el.closest('.prow'),open=row.classList.contains('open');
+    $$('.prow.open').forEach(function(r){r.classList.remove('open');$('.prow-head',r).setAttribute('aria-expanded','false')});
+    if(!open){row.classList.add('open');el.setAttribute('aria-expanded','true')}
+    return;
+  }
+  if((el=t.closest('[data-stage]'))){
+    $$('.segw button').forEach(function(b){b.classList.remove('on')});el.classList.add('on');
+    var v=VERDICTS[el.getAttribute('data-stage')];
+    var html='<div><div class="v-t">'+v.t+'</div><p>'+v.p+'</p>';
+    if(v.apply)html+='<button class="btn btn-primary sm" data-apply="'+v.apply+'">'+v.cta+' <svg class="ic"><use href="#i-arrow"/></svg></button>';
+    else html+='<a class="btn btn-primary sm" href="'+v.href+'">'+v.cta+' <svg class="ic"><use href="#i-arrow"/></svg></a>';
+    if(v.apply2)html+='<button class="tlink" data-apply="'+v.apply2+'">'+v.cta2+'</button>';
+    if(v.href2)html+='<a class="tlink" href="'+v.href2+'">'+v.cta2+'</a>';
+    html+='</div>';
+    $('#verdict').innerHTML=html;
+    return;
+  }
+  if((el=t.closest('.ev-head'))){
+    var ev=el.closest('.evrow');
+    ev.classList.toggle('open');
+    el.setAttribute('aria-expanded',ev.classList.contains('open'));
+    return;
+  }
+  if((el=t.closest('[data-evreg]'))){
+    var id=el.getAttribute('data-evreg');
+    evReg.push(id);store.set(ukey('events'),evReg);renderEvents();
+    var r=$('#ev-'+id);if(r){r.classList.add('open');$('.ev-head',r).setAttribute('aria-expanded','true')}
+    toast('Registered — see you there','cal');
+    return;
+  }
+  if((el=t.closest('[data-evcal]'))){toast('Reminder set for the event','cal');return}
+  if((el=t.closest('[data-appdet]'))){
+    var card=$('#app-'+el.getAttribute('data-appdet'));
+    if(card)card.classList.toggle('open');
+    return;
+  }
+  if((el=t.closest('.faq-q'))){
+    var fr=el.closest('.faqrow');
+    fr.classList.toggle('open');
+    el.setAttribute('aria-expanded',fr.classList.contains('open'));
+    return;
+  }
+  if((el=t.closest('.citem'))){
+    curCourse=el.getAttribute('data-course');
+    renderCourseList();renderCourseDetail();
+    drawRadar($('#radarCv'),skillScores(),true);
+    return;
+  }
+  if((el=t.closest('[data-mod]'))){
+    toggleModule(curCourse,+el.getAttribute('data-mod'));
+    drawRadar($('#radarCv'),skillScores(),true);
+    return;
+  }
+  if(t.closest('[data-cert]')){openCert(curCourse);return}
+  if((el=t.closest('[data-wd]'))){
+    if(el.classList.contains('armed')){
+      var ref=el.getAttribute('data-wd');
+      apps=apps.filter(function(a){return a.ref!==ref});
+      store.set(ukey('apps'),apps);
+      renderApps();renderDesk();
+      if(CT==='profile')renderProfile();
+      toast('Application '+ref+' withdrawn','x');
+    }else{
+      el.classList.add('armed');el.textContent='Confirm withdraw?';
+      setTimeout(function(){if(el.isConnected){el.classList.remove('armed');el.textContent='Withdraw'}},2600);
+    }
+    return;
+  }
+  if((el=t.closest('[data-pref]'))){
+    prefs[el.getAttribute('data-pref')]=el.checked;
+    store.set(ukey('prefs'),prefs);
+    toast(prefs[el.getAttribute('data-pref')]?'Notifications on':'Notifications off');
+    return;
+  }
+});
+
+/* ---- gate form submissions ---- */
+ $('#gtIn').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=this,ok=true;
+  var em=f.lemail.value.trim().toLowerCase(),pw=f.lpass.value;
+  ok=!gErr(f,'lemail',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em),'That email doesn\u2019t look right.')&&ok;
+  ok=!gErr(f,'lpass',pw.length<1,'Your password, please.')&&ok;
+  if(!ok)return;
+  var users=getUsers();
+  if(!users[em]){gErr(f,'lemail',1,'No account with that email yet — create one below.');return}
+  if(users[em].hash!==hashPw(pw)){gErr(f,'lpass',1,'That password doesn\u2019t match.');return}
+  var btn=$('#gtInBtn');btn.disabled=true;btn.innerHTML='<span class="spin"></span> Signing in —';
+  setTimeout(function(){
+    btn.disabled=false;btn.innerHTML='Sign in <svg class="ic"><use href="#i-arrow"/></svg>';
+    AUTH.user=users[em];
+    enter(em,f.remember.checked);
+  },450);
+});
+ $('#gtUp').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=this,ok=true;
+  var nm=f.uname.value.trim(),em=f.uemail.value.trim().toLowerCase(),
+      pw=f.upass.value,pw2=f.ucpass.value;
+  ok=!gErr(f,'uname',nm.length<2,'Your full name, please.')&&ok;
+  ok=!gErr(f,'uemail',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em),'That email doesn\u2019t look right.')&&ok;
+  ok=!gErr(f,'upass',pw.length<6,'At least 6 characters.')&&ok;
+  ok=!gErr(f,'ucpass',pw!==pw2||pw2.length<1,'Passwords don\u2019t match.')&&ok;
+  if(!ok)return;
+  if(!f.uagree.checked){toast('Please confirm the honesty line first','x');return}
+  var users=getUsers();
+  if(users[em]){gErr(f,'uemail',1,'An account already exists with that email — sign in instead.');return}
+  var btn=$('#gtUpBtn');btn.disabled=true;btn.innerHTML='<span class="spin"></span> Creating —';
+  setTimeout(function(){
+    btn.disabled=false;btn.innerHTML='Create account &amp; enter <svg class="ic"><use href="#i-arrow"/></svg>';
+    users[em]={name:nm,email:em,hash:hashPw(pw),created:new Date().toISOString()};
+    setUsers(users);
+    AUTH.user=users[em];
+    enter(em,true);
+    toast('Account created — akwaaba, '+nm.split(' ')[0]+'.');
+  },550);
+});
+
+/* modal inputs */
+ $('#mBody').addEventListener('input',function(e){
+  var n=e.target.name;if(!n||e.target.type==='file')return;
+  M.d[n]=e.target.type==='checkbox'?e.target.checked:e.target.value;
+  var f=e.target.closest('.field');if(f)f.classList.remove('err');
+  if(n==='why'){var w=words(M.d.why),wc=$('#wc');if(wc){wc.textContent=w+' words';wc.parentElement.classList.toggle('bad',w<30)}}
+  updateStepState();
+});
+ $('#mBody').addEventListener('change',function(e){
+  if(e.target.name==='cv'){
+    var f=e.target.files&&e.target.files[0];
+    if(f){M.d.cv={name:f.name,size:f.size};
+      $('#cvbox').classList.add('has');$('#cvT').textContent=f.name+' · '+(f.size/1024|0)+' KB';
+      if(f.size/1048576>5){toast('That file is over 5MB — a smaller PDF, please','x');M.d.cv=null;$('#cvbox').classList.remove('has');$('#cvT').textContent='Upload resume (PDF) — optional but welcome'}
+    }
+  }
+});
+ $('#mBody').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type!=='file'){e.preventDefault();var b=$('#mBody [data-act="next"]');if(b&&!b.disabled)nextStep()}
+});
+ $('#certName').addEventListener('input',function(){
+  clearTimeout(certCtx.timer);
+  var v=this.value;
+  certCtx.timer=setTimeout(function(){
+    if(acad.certs[certCtx.cid]){acad.certs[certCtx.cid].name=v;store.set(ukey('acad'),acad)}
+    var c=COURSES.filter(function(x){return x.id===certCtx.cid})[0];
+    drawCert($('#certCanvas'),c,v,certCtx.ref);
+  },220);
+});
+
+/* keyboard: esc / tab trap / ctrl+k */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(!AUTH.user)return;
+    if($('#certM').classList.contains('show')){showLayer('#certM',false);closeAll()}
+    else if($('#modal').classList.contains('show'))closeModal();
+    else if($('#drawer').classList.contains('show'))closeDrawer();
+    else if(S.panelOpen)superClose();
+    else if(menu.classList.contains('show'))setMenu(false);
+    return;
+  }
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){
+    if(!AUTH.user)return;
+    e.preventDefault();S.panelOpen?superClose():superOpen();return;
+  }
+  if(e.key!=='Tab')return;
+  var root=$('#certM').classList.contains('show')?$('#certM'):($('#modal').classList.contains('show')?$('#modal'):($('#drawer').classList.contains('show')?$('#drawer'):(S.panelOpen?$('#superPanel'):(!AUTH.user?$('#gate'):null))));
+  if(!root)return;
+  var f=$$('a[href],button:not([disabled]),input,select,textarea',root).filter(function(el){return el.offsetParent!==null});
+  if(!f.length)return;
+  var first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+});
+
+/* ================= init ================= */
+renderProgrammes();
+renderEvents();
+renderProcess();
+renderFaq();
+renderLedger();
+updateDeskBadge();
+
+/* restore session or show the gate */
+(function boot(){
+  var s=readSession();
+  if(s&&enter(s,false))return;
+  if(location.hash&&location.hash.length>1&&document.getElementById(location.hash.slice(1)))PENDING=location.hash;
+  showGate();
+})();
+})();
+</script>
+</body>
+</html>

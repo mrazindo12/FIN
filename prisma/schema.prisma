@@ -1,0 +1,265 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  STAFF
+}
+
+enum ApplicationStatus {
+  PENDING_PAYMENT
+  APPLIED
+  REVIEW
+  INTERVIEW
+  OFFER
+  REJECTED
+}
+
+enum SlaStatus {
+  ON_TRACK
+  WARNING
+  BREACHED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum SkillAxis {
+  TECHNICAL_SKILLS
+  COMMUNICATION
+  PROBLEM_SOLVING
+  TEAMWORK
+  LEADERSHIP
+  ADAPTABILITY
+}
+
+enum DraftType {
+  COVER_LETTER
+  CV
+}
+
+model User {
+  id                   String             @id @default(cuid())
+  email                String             @unique
+  passwordHash         String
+  fullName             String
+  phone                String?
+  role                 Role               @default(STUDENT)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  profile              StudentProfile?
+  applications         Application[]      @relation("UserApplications")
+  reviewedApplications Application[]      @relation("ReviewedBy")
+  announcements        Announcement[]
+  completions          ModuleCompletion[]
+  certificates         Certificate[]
+  drafts               Draft[]
+
+  @@map("users")
+}
+
+model StudentProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institution    String?
+  programOfStudy String?
+  yearOfStudy    String?
+  indexNumber    String?
+  avatarUrl      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("student_profiles")
+}
+
+model Company {
+  id           String        @id @default(cuid())
+  name         String
+  address      String?
+  contactEmail String?
+  isCustom     Boolean       @default(false)
+  isActive     Boolean       @default(true)
+  applications Application[]
+  programs     Program[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("companies")
+}
+
+model Application {
+  id                     String            @id @default(cuid())
+  userId                 String
+  user                   User              @relation("UserApplications", fields: [userId], references: [id], onDelete: Cascade)
+  companyId              String?
+  company                Company?          @relation(fields: [companyId], references: [id])
+  
+  // Permanent snapshots of company details at submission time
+  companyNameSnapshot    String
+  companyAddressSnapshot String?
+
+  // Personal identity snapshots
+  firstName              String
+  lastName               String
+  gender                 String?
+  phone                  String
+  email                  String
+
+  // Academic record snapshots
+  institution            String
+  programOfStudy         String
+  yearOfStudy            String
+  indexNumber            String
+
+  coverLetter            String?
+
+  status                 ApplicationStatus @default(PENDING_PAYMENT)
+  
+  // SLA tracking fields
+  slaDeadlineAt          DateTime?
+  slaStatus              SlaStatus         @default(ON_TRACK)
+
+  // Staff review audit fields
+  reviewedById           String?
+  reviewedBy             User?             @relation("ReviewedBy", fields: [reviewedById], references: [id])
+  reviewedAt             DateTime?
+
+  // Comms tracking
+  letterSentAt           DateTime?
+  companyNotifiedAt      DateTime?
+
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  submittedAt            DateTime?
+
+  payments               Payment[]
+
+  @@map("applications")
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  applicationId     String
+  application       Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  paystackReference String        @unique
+  amountKobo        Int           // Store smallest currency unit (pesewas/kobo)
+  status            PaymentStatus @default(PENDING)
+  verifiedAt        DateTime?
+  rawWebhookPayload Json?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@map("payments")
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  pinned      Boolean  @default(false)
+  isPublished Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+
+  @@map("announcements")
+}
+
+model Program {
+  id                  String    @id @default(cuid())
+  title               String
+  description         String
+  location            String
+  category            String
+  companyId           String?
+  company             Company?  @relation(fields: [companyId], references: [id])
+  companyNameSnapshot String
+  applicationDeadline DateTime?
+  isActive            Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@map("programs")
+}
+
+model Course {
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  order        Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  modules      Module[]
+  certificates Certificate[]
+
+  @@map("courses")
+}
+
+model Module {
+  id          String             @id @default(cuid())
+  courseId    String
+  course      Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  content     String
+  order       Int                @default(0)
+  skillAxis   SkillAxis
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  completions ModuleCompletion[]
+
+  @@map("modules")
+}
+
+model ModuleCompletion {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleId    String
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  completedAt DateTime @default(now())
+
+  @@unique([userId, moduleId])
+  @@map("module_completions")
+}
+
+model Certificate {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId        String
+  course          Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  certificateCode String   @unique
+  issuedAt        DateTime @default(now())
+
+  @@unique([userId, courseId])
+  @@map("certificates")
+}
+
+model Draft {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      DraftType
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("drafts")
+}
